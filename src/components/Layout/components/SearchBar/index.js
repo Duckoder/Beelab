@@ -11,9 +11,9 @@ function SearchBar() {
   return (
     <div className={cx('wrapper')}>
       <div className={cx('inner')}>
-        <InputGroup className={cx('search-bar')}>
+        <InputGroup className='w-25 h-75'>
           <Form.Control placeholder="Tìm kiếm ở đây..." aria-label="Searching here" aria-describedby="basic-addon2" />
-          <InputGroup.Text id="basic-addon2" className={cx('search-icon')}>
+          <InputGroup.Text id="basic-addon2" className='bg-dark'>
             <FontAwesomeIcon icon={faMagnifyingGlass} style={{ color: '#ffffff' }} />
           </InputGroup.Text>
         </InputGroup>
