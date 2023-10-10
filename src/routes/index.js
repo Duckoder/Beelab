@@ -5,7 +5,7 @@ import Product from '~/pages/Product';
 //public routes, user mustn't login to see
 const publicRoutes = [
   { path: '/', component: Home },
-  { path: '/product', component: Product, layout: HeaderOnly },
+  { path: '/product', component: Product},
 ];
 
 //private routes, user must login to see

@@ -3,7 +3,7 @@ import styles from './Searchbar.module.scss';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faCartShopping } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
@@ -17,6 +17,7 @@ function SearchBar() {
             <FontAwesomeIcon icon={faMagnifyingGlass} style={{ color: '#ffffff' }} />
           </InputGroup.Text>
         </InputGroup>
+        <FontAwesomeIcon icon={faCartShopping} size="lg" style={{color: "#212529",}}  className='ms-3'/>
       </div>
     </div>
   );
