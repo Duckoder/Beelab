@@ -1,5 +1,4 @@
 import { MDBFooter, MDBContainer, MDBRow, MDBCol, MDBIcon } from 'mdb-react-ui-kit';
-import Container from 'react-bootstrap/Container';
 import classNames from 'classnames';
 import styles from './Footer.module.scss';
 
