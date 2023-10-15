@@ -4,7 +4,6 @@ import Header from '~/components/Layout/components/Header';
 import Footer from '~/components/Layout/components/Footer';
 import SearchBar from '~/components/Layout/components/SearchBar';
 
-
 const cx = classNames.bind(styles);
 
 function DefaultLayout({ children }) {
@@ -12,8 +11,8 @@ function DefaultLayout({ children }) {
     <div className={cx('wrapper')}>
       <Header />
       <div className={cx('container')}>
-        <div className={cx('content')}>{children}</div>
-      </div>
+        <div className={cx('content')}> {children} </div>{' '}
+      </div>{' '}
       <Footer />
     </div>
   );
