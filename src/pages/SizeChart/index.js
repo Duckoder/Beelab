@@ -1,8 +1,9 @@
 import styles from './Sizechart.modules.scss';
 import classNames from 'classnames';
 import React from 'react';
-import Image from 'react-bootstrap/Image'; // or use standard HTML <img> tag
 import { MDBContainer, MDBRow, MDBCol, MDBIcon } from 'mdb-react-ui-kit';
+
+const cx = classNames.bind(styles);
 
 function SizeChart() {
   return (

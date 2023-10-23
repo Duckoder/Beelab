@@ -1,49 +1,49 @@
 .wrapper {
-    height: 150px;
-    width: 100%;
-    border: 1px;
-    display: flex;
-    justify-content: center;
-    //background-color: black;
-  }
-  
-  .inner {
-    display: flex;
-    height: 100%;
-    width: 70%;
-    align-items: center;
-    
-    //background-color: red;
-  }
-  
-  .container-navbar{
-    font-family: var(--ff-mon);
-    font-size: var(--fs-16);
-    text-align: center;
-    align-items: center;
-    text-decoration: none;
-  }
-  
-  .navbar-item{
-    text-decoration: none;
-    color: black;
-    font-weight: bold;
-  }
-  
-  .navbar-item:hover{
-    color: rgb(106, 106, 106);
-  }
-  
-  .logo{
-    font-size: 30px;
-  }
-  
-  .product-item{
-    text-decoration: none;
-    color: black;
-  }
-  
-  .product-item:hover{
-    color: rgb(106, 106, 106);
-  }
-  
+  top: 0;
+  height: 150px;
+  width: 100%;
+  border: 1px;
+  display: flex;
+  justify-content: center;
+  //background-color: black;
+}
+
+.inner {
+  display: flex;
+  height: 100%;
+  width: 70%;
+  align-items: center;
+
+  //background-color: red;
+}
+
+.container-navbar {
+  font-family: var(--ff-mon);
+  font-size: var(--fs-16);
+  text-align: center;
+  align-items: center;
+  text-decoration: none;
+}
+
+.navbar-item {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+.navbar-item:hover {
+  color: rgb(106, 106, 106);
+}
+
+.logo {
+  font-size: 30px;
+}
+
+.product-item {
+  text-decoration: none;
+  color: black;
+}
+
+.product-item:hover {
+  color: rgb(106, 106, 106);
+}

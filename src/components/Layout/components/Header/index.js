@@ -6,33 +6,14 @@ import Row from 'react-bootstrap/Row';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
-import { Collapse } from 'react-bootstrap/Collapse';
 
 const cx = classNames.bind(styles);
 
 function Header() {
-  const [showNavbar, setShownavbar] = useState(false);
-  const handleShowNavbar = () => {
-    setShownavbar(true);
-  };
-
   return (
     <header className={cx('wrapper')}>
       <div className={cx('inner')}>
-        <div className="menu-icon" onClick={handleShowNavbar}>
-          {showNavbar ? (
-            <i>
-              <FontAwesomeIcon icon={faBars} style={{ color: '#000000' }} />
-            </i>
-          ) : (
-            <i>
-              <FontAwesomeIcon icon={faCircleXmark} style={{ color: '#000000' }} />
-            </i>
-          )}
-        </div>
-        <div className={`nav-elements ${showNavbar && 'active'}`}></div>
-        <Container fluid>
+        <Container fluid className="">
           <Row className={cx('container-navbar')}>
             <Col>
               <a className={cx('navbar-item')} href="/">
