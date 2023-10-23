@@ -54,7 +54,9 @@ function Header() {
           </div>
           <Row className={cx('container-navbar')}>
             {Array.from({ length: 8 }).map((_, idx) => (
-              <Col key={idx}>SP</Col>
+              <Col key={idx}>
+                <a href="/product">SP</a>
+              </Col>
             ))}
           </Row>
         </Container>
