@@ -31,7 +31,7 @@ function Header() {
               </a>
             </Col>
             <Col>
-              <a className={cx('navbar-item')} href="">
+              <a className={cx('navbar-item')} href="/size">
                 BẢNG SIZE
               </a>
             </Col>
