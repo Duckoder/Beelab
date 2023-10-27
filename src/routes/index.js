@@ -11,7 +11,7 @@ const publicRoutes = [
   { path: '/product', component: Product },
   { path: '/cartproduct', component: Cart },
   { path: '/size', component: SizeChart },
-  { path: '/product-detail', component: ProductDetail},
+  { path: '/product-detail', component: ProductDetail },
 ];
 //private routes, user must login to see
 const privateRoutes = [];

@@ -1,9 +1,8 @@
 import Carousel from '~/components/Layout/components/Carousel';
-import classNames from 'classnames';
+import classNames from 'classnames/bind';
 import styles from './Home.module.scss';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Card from 'react-bootstrap/Card';
+import ItemCard from '~/components/Layout/components/ItemCard';
 
 const cx = classNames.bind(styles);
 
@@ -22,29 +21,13 @@ function Home() {
 
       <Row className="mt-5 mb-5">
         {Array.from({ length: 5 }).map((_, idx) => (
-          <Row key={idx} className="mt-5">
+          <Row key={idx} className="mt-2">
             <h3>Sản phẩm</h3>
-            <Row xs={1} md={4} className="g-4">
-              {Array.from({ length: 8 }).map((_, idx) => (
-                <Col key={idx}>
-                  <Card className="text-center me-2">
-                    <Card.Img
-                      variant="top"
-                      src="https://dictionary.cambridge.org/vi/images/thumb/Tshirt_noun_001_18267.jpg?version=5.0.338"
-                    />
-                    <Card.Body>
-                      <Card.Title>Card title</Card.Title>
-                      <Card.Text>
-                        This is a longer card with supporting text below as a natural lead-in to additional content.
-                        This content is a little bit longer.
-                      </Card.Text>
-                    </Card.Body>
-                  </Card>
-                </Col>
-              ))}
-            </Row>
-            <Row className='text-center mt-5'>
-              <a href='' className='text-dark'>Xem thêm</a>
+            <ItemCard />
+            <Row className="text-center mt-5">
+              <a href="" className="text-dark">
+                Xem thêm
+              </a>
             </Row>
           </Row>
         ))}
