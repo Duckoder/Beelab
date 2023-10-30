@@ -1,97 +1,63 @@
 import { MDBFooter, MDBContainer, MDBRow, MDBCol, MDBIcon } from 'mdb-react-ui-kit';
-import classNames from 'classnames';
 import styles from './Footer.module.scss';
+import classNames from 'classnames/bind';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTiktok } from '@fortawesome/free-brands-svg-icons';
 
 const cx = classNames.bind(styles);
 
 function Footer() {
   return (
-    <MDBFooter bgColor="light" className="text-center text-lg-start text-muted w-100 footer">
-      <section className="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
-        <div className="me-5 d-none d-lg-block">
-          <span>Get connected with us on social networks:</span>
+    <MDBFooter className="text-center text-lg-start text-muted w-100 footer" style={{ backgroundColor: '#000000' }}>
+      <section
+        className="d-flex justify-content-center justify-content-lg-between p-4 border-bottom"
+        style={{ backgroundColor: '#000000' }}
+      >
+        <div className="me-5 d-none d-lg-block text-white">
+          <span>Theo dõi BEELAB trên các nền tảng khác nhé : </span>
         </div>
 
-        <div>
-          <a href="" className="me-4 text-reset">
-            <MDBIcon color="secondary" fab icon="facebook-f" />
+        <div className="d-flex">
+          <a href="" className={cx('facebook-icon')}>
+            <MDBIcon color="white" fab icon="facebook-f" />
           </a>
-          <a href="" className="me-4 text-reset">
-            <MDBIcon color="secondary" fab icon="twitter" />
+          <a href="" className={cx('tiktok-icon')}>
+            <FontAwesomeIcon icon={faTiktok} style={{ color: '#fff' }} />
           </a>
-          <a href="" className="me-4 text-reset">
-            <MDBIcon color="secondary" fab icon="google" />
-          </a>
-          <a href="" className="me-4 text-reset">
-            <MDBIcon color="secondary" fab icon="instagram" />
-          </a>
-          <a href="" className="me-4 text-reset">
-            <MDBIcon color="secondary" fab icon="linkedin" />
-          </a>
-          <a href="" className="me-4 text-reset">
-            <MDBIcon color="secondary" fab icon="github" />
+          <a href="" className={cx('instagram-icon')}>
+            <MDBIcon color="white" fab icon="instagram" />
           </a>
         </div>
       </section>
 
-      <section className="">
+      <section className="text-white" style={{ backgroundColor: '#000000' }}>
         <MDBContainer className="text-center text-md-start mt-5">
           <MDBRow className="mt-3">
             <MDBCol md="3" lg="4" xl="3" className="mx-auto mb-4">
-              <h6 className="text-uppercase fw-bold mb-4">
-                <MDBIcon color="secondary" icon="gem" className="me-3" />
-                Company name
-              </h6>
-              <p>
-                Here you can use rows and columns to organize your footer content. Lorem ipsum dolor sit amet,
-                consectetur adipisicing elit.
-              </p>
+              <h6 className="text-uppercase fw-bold mb-4">BEELAB</h6>
+              <p>Cảm ơn bạn vì đã tin tưởng BEELAB. Hi vọng bạn sẽ có những trải nghiệm tốt !!!</p>
             </MDBCol>
 
             <MDBCol md="2" lg="2" xl="2" className="mx-auto mb-4">
-              <h6 className="text-uppercase fw-bold mb-4">Products</h6>
+              <h6 className="text-uppercase fw-bold mb-4">Đường dẫn</h6>
               <p>
-                <a href="#!" className="text-reset">
-                  Angular
+                <a href="/" className="text-reset">
+                  Trang chủ
+                </a>
+              </p>
+              <p>
+                <a href="/product" className="text-reset">
+                  Sản phẩm
                 </a>
               </p>
               <p>
                 <a href="#!" className="text-reset">
-                  React
+                  Bảng Size
                 </a>
               </p>
               <p>
                 <a href="#!" className="text-reset">
-                  Vue
-                </a>
-              </p>
-              <p>
-                <a href="#!" className="text-reset">
-                  Laravel
-                </a>
-              </p>
-            </MDBCol>
-
-            <MDBCol md="3" lg="2" xl="2" className="mx-auto mb-4">
-              <h6 className="text-uppercase fw-bold mb-4">Useful links</h6>
-              <p>
-                <a href="#!" className="text-reset">
-                  Pricing
-                </a>
-              </p>
-              <p>
-                <a href="#!" className="text-reset">
-                  Settings
-                </a>
-              </p>
-              <p>
-                <a href="#!" className="text-reset">
-                  Orders
-                </a>
-              </p>
-              <p>
-                <a href="#!" className="text-reset">
-                  Help
+                  Chính sách đổi trả
                 </a>
               </p>
             </MDBCol>
@@ -117,7 +83,7 @@ function Footer() {
         </MDBContainer>
       </section>
 
-      <div className="text-center p-4" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
+      <div className="text-center text-white p-4" style={{ backgroundColor: '#000000' }}>
         © 2021 Copyright:
         <a className="text-reset fw-bold" href="https://mdbootstrap.com/">
           MDBootstrap.com

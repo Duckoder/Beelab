@@ -3,7 +3,7 @@ import styles from './Searchbar.module.scss';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass, faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faCartShopping, faUser } from '@fortawesome/free-solid-svg-icons';
 import Stack from 'react-bootstrap/Stack';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
@@ -29,7 +29,7 @@ function SearchBar() {
   return (
     <div className={cx('wrapper')}>
       <div className={cx('inner')}>
-        <Stack direction="horizontal" gap={3}>
+        <Stack direction="horizontal" gap={4}>
           <div className="p-2">
             <InputGroup className="">
               <Form.Control
@@ -90,6 +90,11 @@ function SearchBar() {
                 </Overflow>
               </div>
             </div>
+          </div>
+          <div className={cx('login-btn')}>
+            <a href="#">
+              <FontAwesomeIcon icon={faUser} style={{ color: '#000000' }} />{' '}
+            </a>
           </div>
         </Stack>
       </div>
