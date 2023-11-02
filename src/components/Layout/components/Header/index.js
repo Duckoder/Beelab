@@ -6,41 +6,45 @@ import Row from 'react-bootstrap/Row';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import SearchBar from '../SearchBar';
 
 const cx = classNames.bind(styles);
 
 function Header() {
   return (
     <header className={cx('wrapper')}>
+      <SearchBar />
       <div className={cx('inner')}>
         <Container fluid className="">
-          <Row className={cx('container-navbar')}>
-            <Col>
-              <a className={cx('navbar-item')} href="/">
-                TRANG CHỦ
-              </a>
-            </Col>
-            <Col>
-              <a className={cx('navbar-item')} href="">
-                VỀ CHÚNG TÔI
-              </a>
-            </Col>
-            <Col className={cx('logo')}>
-              <a className={cx('navbar-item')} href="/">
-                BEELAB
-              </a>
-            </Col>
-            <Col>
-              <a className={cx('navbar-item')} href="/size">
-                BẢNG SIZE
-              </a>
-            </Col>
-            <Col>
-              <a className={cx('navbar-item')} href="">
-                CHÍNH SÁCH ĐỔI TRẢ
-              </a>
-            </Col>
-          </Row>
+          <div className={cx('navbar-responsive')}>
+            <ul className={cx('navbar-container')}>
+              <li className={cx('nav-links')}>
+                <a href="/product" className={cx('nav-items')}>
+                  SẢN PHẨM
+                </a>
+              </li>
+              <li className={cx('nav-links')}>
+                <a href="" className={cx('nav-items')}>
+                  VỀ CHÚNG TÔI
+                </a>
+              </li>
+              <li className={cx('nav-links')}>
+                <a href="/" className={cx('nav-logo')}>
+                  BEELAB
+                </a>
+              </li>
+              <li className={cx('nav-links')}>
+                <a href="/size" className={cx('nav-items')}>
+                  BẢNG SIZE
+                </a>
+              </li>
+              <li className={cx('nav-links')}>
+                <a href="" className={cx('nav-items')}>
+                  CHÍNH SÁCH ĐỔI TRẢ
+                </a>
+              </li>
+            </ul>
+          </div>
           <div
             style={{
               display: 'flex',
@@ -50,12 +54,14 @@ function Header() {
               marginBottom: '15px',
             }}
           >
-            <div style={{ flex: 1, height: '1px', backgroundColor: 'black' }} />
+            <div style={{ flex: 1, height: '1px', backgroundColor: ' #000000a4' }} />
           </div>
           <Row className={cx('container-navbar')}>
             {Array.from({ length: 8 }).map((_, idx) => (
-              <Col key={idx}>
-                <a href="/product">SP</a>
+              <Col key={idx} className="d-flex justify-content-center">
+                <a href="/product" className={cx('list-product')}>
+                  SP
+                </a>
               </Col>
             ))}
           </Row>

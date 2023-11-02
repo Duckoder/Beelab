@@ -1,0 +1,17 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  min-height: 1000px;
+  justify-content: center;
+}
+
+.content {
+  width: 80%;
+  margin-top: 20px;
+}

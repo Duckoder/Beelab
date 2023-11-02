@@ -10,7 +10,7 @@ const cx = classNames.bind(styles);
 
 function Item(props) {
   return (
-    <Row xs={1} md={4} className=" d-flex justify-content-center">
+    <Row xs={2} sm={3} md={4} className=" d-flex justify-content-center">
       {Array.from({ length: 8 }).map((_, idx) => (
         <Col key={idx} className="p-3 d-flex justify-content-center">
           <div className={cx('item-cards')}>

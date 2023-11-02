@@ -1,4 +1,10 @@
 .wrapper {
+  width: 100%;
+  justify-content: center;
+  background-color: #f5f5f553;
+}
+
+.fixed-nav {
   height: 60px;
   width: 100%;
   display: flex;
@@ -7,17 +13,29 @@
   background-color: #f5f5f5;
 }
 
+.search-icon-responsive {
+  position: relative;
+  top: -1000px;
+  opacity: 0;
+}
+
 .inner {
-  height: 100%;
-  width: 70%;
+  height: 100px;
+  width: 90%;
   display: flex;
   align-items: center;
   justify-content: right;
 }
 
-.search-bar {
-  height: 70%;
-  width: 30%;
+.logo-responsive {
+  position: relative;
+  top: -1000px;
+  opacity: 0;
+}
+.menu-icon-responsive {
+  position: relative;
+  top: -1000px;
+  opacity: 0;
 }
 
 .search-icon {
@@ -25,8 +43,14 @@
   background-color: #303030;
 }
 
-.cart-icon {
+.cart-btn {
   width: 50px;
+  margin: 15px 10px;
+}
+
+.login-btn {
+  width: 50px;
+  margin: 15px 10px;
 }
 
 .navigation {
@@ -60,4 +84,80 @@
 
 .navigation:hover .navigation-content {
   display: block;
+}
+
+@media (max-width: 990px) {
+  .wrapper {
+    position: fixed;
+    height: 100%;
+    top: 0px;
+    z-index: 110202020;
+  }
+  .inner {
+    height: 100px;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+  }
+
+  .search-icon-responsive {
+    position: relative;
+    top: 0px;
+    opacity: 1;
+  }
+  .search-bar {
+    position: relative;
+    width: 0;
+    top: -1000px;
+    z-index: -10000;
+    opacity: 1;
+  }
+
+  .logo-responsive {
+    position: relative;
+    top: 0px;
+    opacity: 1;
+    margin-left: 33%;
+    letter-spacing: 10px;
+  }
+
+  .nav-links {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+  .menu-icon-responsive {
+    position: relative;
+    top: 0px;
+    opacity: 1;
+    margin-left: 10%;
+  }
+
+  .cart-btn {
+    width: 50px;
+    margin: 15px 10px;
+  }
+
+  .login-btn {
+    width: 50px;
+    margin: 15px 10px;
+  }
+
+  // .close-btn {
+  //   position: relative;
+  // }
+
+  // .close {
+  //   position: absolute;
+  //   left: 0px;
+  //   width: 200px;
+  //   height: 200%;
+  //   background-color: white;
+  //   z-index: 0;
+  // }
+  // .open {
+  //   display: flex;
+  // }
 }

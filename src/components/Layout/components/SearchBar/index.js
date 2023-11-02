@@ -3,7 +3,7 @@ import styles from './Searchbar.module.scss';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass, faCartShopping, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faCartShopping, faUser, faBars, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import Stack from 'react-bootstrap/Stack';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
@@ -17,6 +17,7 @@ function SearchBar() {
   const price = 150;
 
   const [counter, setCounter] = useState(0);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleIncreaseNumber = () => {
     setCounter(counter + 1);
@@ -28,9 +29,30 @@ function SearchBar() {
 
   return (
     <div className={cx('wrapper')}>
-      <div className={cx('inner')}>
-        <Stack direction="horizontal" gap={4}>
-          <div className="p-2">
+      <div className={cx('fixed-nav')}>
+        <div className={cx(menuOpen ? 'open' : 'close')}>
+          <p>sdasd</p>
+        </div>
+        {/* <div className={cx('menu-side-responsive')}>
+        </div> */}
+        <div
+          className={cx('menu-icon-responsive')}
+          onClick={() => {
+            setMenuOpen(!menuOpen);
+          }}
+        >
+          <FontAwesomeIcon icon={faBars} style={{ color: '#000000' }} />
+        </div>
+        <div className={cx('logo-responsive')}>
+          <a href="/" className={cx('nav-links')}>
+            BEELAB
+          </a>
+        </div>
+        <div className={cx('inner')}>
+          <div className={cx('search-icon-responsive')}>
+            <FontAwesomeIcon icon={faMagnifyingGlass} style={{ color: '#000000' }} />
+          </div>
+          <div className={cx('search-bar')}>
             <InputGroup className="">
               <Form.Control
                 placeholder="Recipient's username"
@@ -42,7 +64,7 @@ function SearchBar() {
               </InputGroup.Text>
             </InputGroup>
           </div>
-          <div className="p-2">
+          <div className={cx('cart-btn')}>
             <div className={cx('navigation')}>
               <a href="/cartproduct">
                 <FontAwesomeIcon icon={faCartShopping} style={{ color: '#000000' }} />
@@ -92,11 +114,12 @@ function SearchBar() {
             </div>
           </div>
           <div className={cx('login-btn')}>
-            <a href="#">
+            <a href="/login-page">
               <FontAwesomeIcon icon={faUser} style={{ color: '#000000' }} />{' '}
             </a>
           </div>
-        </Stack>
+          {/* </Stack> */}
+        </div>
       </div>
     </div>
   );

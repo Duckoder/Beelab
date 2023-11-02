@@ -13,7 +13,10 @@ function Footer() {
         className="d-flex justify-content-center justify-content-lg-between p-4 border-bottom"
         style={{ backgroundColor: '#000000' }}
       >
-        <div className="me-5 d-none d-lg-block text-white">
+        <div
+          className="me-5
+         d-none d-lg-block text-white"
+        >
           <span>Theo dõi BEELAB trên các nền tảng khác nhé : </span>
         </div>
 
