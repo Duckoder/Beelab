@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500&display=swap');
+
+.revenue,
+.best-seller,
+.total-customer {
+  background-color: rgb(255, 255, 255);
+  border: solid rgb(159, 159, 159) 0.5px;
+  box-shadow: 7px 10px 10px 0.5px rgb(205, 205, 205);
+  border-radius: 5px;
+  padding: 10px;
+  font-style: 'Open sans', sans-serif;
+}
+
+.chart {
+  margin-top: 50px;
+}

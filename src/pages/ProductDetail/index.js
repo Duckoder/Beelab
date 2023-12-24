@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
+import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
@@ -7,14 +8,24 @@ import Button from 'react-bootstrap/Button';
 import classNames from 'classnames/bind';
 import styles from './ProductDetail.modules.scss';
 import Circle from '@uiw/react-color-circle';
-import { useState } from 'react';
-import Col from 'react-bootstrap/Col';
+import { useParams } from 'react-router-dom';
+import { getSingleProduct } from '~/API/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
 function ProductDetail() {
+  let { productId } = useParams();
+  const [product, setProduct] = useState([]);
+
+  useEffect(() => {
+    getSingleProduct(productId).then((data) => {
+      setProduct(data);
+      console.log(data);
+    });
+  }, []);
+
   const sizeArr = [
     {
       id: 1,
@@ -42,32 +53,21 @@ function ProductDetail() {
     if (counter > 1) setCounter(counter - 1);
   };
 
-  const handleChangeColor = () => {
-    setIsActive((current) => !current);
-  };
-
   return (
-    <Container>
+    <Container className="wrapper">
       <Row>
         <div className="col-md-8">
           <div className="pro-img-details">
-            <img
-              src="https://bizweb.dktcdn.net/100/415/697/products/kem-1-186eb0a8-1b6c-4b55-8c91-f65d44796b49.jpg?v=1692016656817"
-              alt=""
-            />
+            <img src={product.image} alt="" className="img-detail" />
           </div>
         </div>
         <div className="col-md-4">
-          <h5 className={cx('product-name')}>TÊN SẢN PHẨM</h5>
+          <h5 className={cx('product-name')}>{product.title}</h5>
           <hr />
-          <h5 className={cx('product-price')}>100.000 VND</h5>
+          <h5 className={cx('product-price')}>{product.price},000 VND</h5>
           <div className="mt-3">Thông tin sản phẩm</div>
           <ul className={cx('product-description')}>
-            {Array.from({ length: 4 }).map((_, idx) => (
-              <li className={cx('product-description-element')} key={idx}>
-                Mô tả
-              </li>
-            ))}
+            <li className={cx('product-description-element')}>{product.description}</li>
           </ul>
           <div className="mt-3">
             <span>Màu sắc</span>
@@ -116,8 +116,8 @@ function ProductDetail() {
         </div>
       </Row>
       <Row className={cx('product-detailed-description')}>
-        <h3 className="d-flex justify-content-center mt-4">Mô tả sản phẩm</h3>
-        <p>....</p>
+        <h3 className="d-flex justify-content-center mt-5">Mô tả sản phẩm</h3>
+        <p>{product.description}</p>
       </Row>
 
       <Row className={cx('product-recommend')}>

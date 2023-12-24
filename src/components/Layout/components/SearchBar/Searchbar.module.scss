@@ -77,16 +77,31 @@
   display: block;
 }
 
-.navigation a:hover {
-  background-color: #ddd;
-  border-radius: 4px;
-}
-
 .navigation:hover .navigation-content {
   display: block;
 }
 
+.open {
+  position: absolute;
+  top: 60px;
+  left: -300px;
+}
+
+.close {
+  position: absolute;
+  top: 60px;
+  left: -300px;
+}
+
 @media (max-width: 990px) {
+  .close {
+    position: absolute;
+    top: 60px;
+    left: -300px;
+    transition: 1s;
+    background-color: #ffffff;
+    height: 100%;
+  }
   .wrapper {
     position: fixed;
     height: 100%;
@@ -119,7 +134,7 @@
     top: 0px;
     opacity: 1;
     margin-left: 33%;
-    letter-spacing: 10px;
+    letter-spacing: 0.8rem;
   }
 
   .nav-links {
@@ -143,6 +158,16 @@
   .login-btn {
     width: 50px;
     margin: 15px 10px;
+  }
+
+  .open {
+    position: absolute;
+    left: 0;
+    top: 60px;
+    height: 100%;
+    width: 200%;
+    background-color: #00000077;
+    transition: 1s;
   }
 
   // .close-btn {

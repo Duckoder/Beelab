@@ -3,9 +3,6 @@ import styles from './Header.module.scss';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
 import SearchBar from '../SearchBar';
 
 const cx = classNames.bind(styles);
@@ -24,7 +21,7 @@ function Header() {
                 </a>
               </li>
               <li className={cx('nav-links')}>
-                <a href="" className={cx('nav-items')}>
+                <a href="/about" className={cx('nav-items')}>
                   VỀ CHÚNG TÔI
                 </a>
               </li>
@@ -39,7 +36,7 @@ function Header() {
                 </a>
               </li>
               <li className={cx('nav-links')}>
-                <a href="" className={cx('nav-items')}>
+                <a href="/return-policy" className={cx('nav-items')}>
                   CHÍNH SÁCH ĐỔI TRẢ
                 </a>
               </li>

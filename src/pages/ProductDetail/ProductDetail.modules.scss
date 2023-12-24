@@ -1,7 +1,21 @@
+.wrapper {
+  margin-top: 50px;
+}
+
 .product-price {
   color: red;
   font-weight: bold;
   font-size: 1.8rem;
+}
+
+.img-detail {
+  display: block;
+  width: 70%;
+}
+.pro-img-details {
+  display: flex;
+  height: fit-content;
+  justify-content: center;
 }
 
 .product-description {
@@ -70,6 +84,10 @@
 .product-detailed-description {
   display: flex;
   justify-content: center;
+}
+
+.product-name {
+  font-weight: bold;
 }
 
 .item-name {

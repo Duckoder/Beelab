@@ -1,6 +1,5 @@
 .item-cards {
   width: 100%;
-  margin-bottom: 50px;
 }
 
 .cart-icon {
@@ -17,14 +16,10 @@
 .item-img {
   opacity: 1;
   display: block;
-  margin: 0px auto;
-  max-width: 100%; /* Set the maximum width of the image to fit the container */
-  max-height: 50%; /* Set the maximum height of the image to fit the container */
-  width: auto; /* Allow the image to adjust its width */
-  height: 300px; /* Allow the image to adjust its height */
+  width: 100%;
+  height: auto;
   transition: 0.5s ease;
   backface-visibility: hidden;
-  z-index: -10123123;
 }
 
 .icon-right {
@@ -40,10 +35,6 @@
 
 .img-container {
   position: relative;
-  max-width: 100%; /* Set the maximum width of the image to fit the container */
-  max-height: 50%; /* Set the maximum height of the image to fit the container */
-  width: auto; /* Allow the image to adjust its width */
-  height: 200px; /* Allow the image to adjust its height */
 }
 
 .img-container:hover .item-img {
@@ -60,8 +51,6 @@
 
 .item-name {
   font-weight: bold;
-  font-size: 1rem;
-  height: 130px;
   text-decoration: none;
   color: #5e5e5e;
 }

@@ -20,3 +20,12 @@
   background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
   border-radius: 50px;
 }
+.text-reset {
+  text-decoration: none;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+.text-reset:hover {
+  color: #818181;
+}

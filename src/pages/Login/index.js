@@ -2,6 +2,8 @@ import classNames from 'classnames/bind';
 import styles from './Login.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { Button, Input, Space } from 'antd';
+import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 
 const cx = classNames.bind(styles);
 
@@ -14,7 +16,11 @@ function Login() {
           <input className={cx('username-input')} placeholder="Tên đăng nhập" />
         </div>
         <div className={cx('password')}>
-          <input className={cx('password-input')} placeholder="Mật khẩu" />
+          <Input.Password
+            className={cx('password-input')}
+            placeholder="Nhập mật khấu"
+            iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+          />
         </div>
         <div className={cx('more-option')}>
           <a className={cx('forgot-password')} href="/forgot-pass">
