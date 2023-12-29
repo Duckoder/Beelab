@@ -12,7 +12,7 @@ function Item(props) {
       <div className={cx('img-container')}>
         <div className="d-flex justify-content-center fw-normal">
           <a href={`/product-detail/${props.productId}`}>
-            <img src={props.itemImage} className={cx('item-img')} href={`/product-detail/${props.productId}`} />
+            <img src={props.productImage} className={cx('item-img')} href={`/product-detail/${props.productId}`} />
           </a>
         </div>
 
@@ -27,10 +27,10 @@ function Item(props) {
       </div>
       <div className="d-flex justify-content-center fw-normal">
         <a href={`/product-detail/${props.productId}`} className={cx('item-name')}>
-          {props.itemName}
+          {props.productName}
         </a>
       </div>
-      <div className="d-flex justify-content-center text-danger fs-5 fw-bold mt-1">{props.itemPrice},000 VND</div>
+      <div className="d-flex justify-content-center text-danger fs-5 fw-bold mt-1">{props.productPrice}đ</div>
     </div>
   );
 }

@@ -6,14 +6,44 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faCartShopping, faUser, faBars } from '@fortawesome/free-solid-svg-icons';
 import Stack from 'react-bootstrap/Stack';
 import Row from 'react-bootstrap/Row';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Overflow from 'react-overflow-indicator';
 import Sidebar from '../Sidebar';
 import { Button, InputNumber, Space, Avatar, Badge } from 'antd';
+import axios from 'axios';
 
 const cx = classNames.bind(styles);
 
 function SearchBar() {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchSuggestions = async () => {
+      if (searchTerm.trim() === '') {
+        setSuggestions([]); // Clear suggestions when search term is empty
+        return;
+      }
+
+      setLoading(true);
+      try {
+        const response = await axios.get(`https://fakestoreapi.com/products?query=${searchTerm}`);
+        setSuggestions(response.data); // Assuming the response is an array of suggestions
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching suggestions:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchSuggestions();
+  }, [searchTerm]);
+
+  const handleInputChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
   //Giá tạm thời cho tới khi có data
 
   const price = 150;
@@ -42,7 +72,19 @@ function SearchBar() {
         </div>
         <div className={cx('inner')}>
           <div className={cx('search-icon-responsive')}>
-            <FontAwesomeIcon icon={faMagnifyingGlass} style={{ color: '#000000' }} />
+            <input type="text" placeholder="Type to search..." value={searchTerm} onChange={handleInputChange} />
+            {loading ? (
+              <div>Loading...</div>
+            ) : (
+              <ul>
+                {suggestions.map((suggestion) => (
+                  <li key={suggestion.id}>{suggestion.text}</li>
+                  // Render other suggestion details as needed
+                ))}
+              </ul>
+            )}
+            {/* <FontAwesomeIcon icon={faMagnifyingGlass} style={{ color: '#000000' }} /> */}
+            {/* <Autocomplete /> */}
           </div>
           <div className={cx('search-bar')}>
             <InputGroup className="">
@@ -69,11 +111,12 @@ function SearchBar() {
                   <Overflow.Content>
                     <Row className={cx('container-navbar')}>
                       {Array.from({ length: 8 }).map((_, idx) => (
-                        <Stack direction="horizontal" gap={2}>
+                        <Stack direction="horizontal" gap={2} key={idx}>
                           <div className="p-2">
                             <img
                               src="https://dictionary.cambridge.org/vi/images/thumb/Tshirt_noun_001_18267.jpg?version=5.0.338"
                               className=""
+                              alt="avatar"
                             />
                           </div>
                           <div className="p-2">
