@@ -1,9 +1,10 @@
 import { Fragment, useState, useEffect, useContext } from 'react';
 import { Dialog, Disclosure, Popover, Transition, Menu } from '@headlessui/react';
-import { Bars3Icon, UserCircleIcon, XMarkIcon, ShoppingCartIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { Bars3Icon, UserCircleIcon, XMarkIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
+import { SideBarCartContext } from '~/context/SideBarCartContext';
+import SideBarCart from '~/components/Layout/components/SideBarCart';
 import { CartContext } from '~/context/CartContext/index';
-import CartItem from '../CartItem';
 
 const products = [
   { name: 'Tất cả sản phẩm', href: '/product' },
@@ -18,10 +19,11 @@ function classNames(...classes) {
 
 function TailwindHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { cart, clearCart, itemAmount, total } = useContext(CartContext);
+  const { itemAmount } = useContext(CartContext);
+  const { setIsOpen, isOpen } = useContext(SideBarCartContext);
 
   return (
-    <div className="w-full top-0 mb-3">
+    <div className="w-full top-0 mb-3 fixed z-50 shadow-2xl">
       <header className="bg-white">
         <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
           <div className="hidden lg:flex lg:flex-1">
@@ -103,71 +105,7 @@ function TailwindHeader() {
               Về chúng tôi
             </a>
           </Popover.Group>
-
-          <div className=" lg:flex lg:flex-1 lg:justify-end mr-[5px]">
-            <Menu as="div" className="relative inline-block text-left">
-              <div>
-                <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                  <div>
-                    <span className="  bg-red-500 text-white rounded-full px-2 py-1 text-xs absolute top-1 right-1 transform translate-x-1/2 -translate-y-1/2 z-50">
-                      {itemAmount}
-                    </span>
-                    <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
-                  </div>
-                </Menu.Button>
-              </div>
-
-              <Transition
-                as={Fragment}
-                enter="transition ease-out duration-100"
-                enterFrom="transform opacity-0 scale-95"
-                enterTo="transform opacity-100 scale-100"
-                leave="transition ease-in duration-75"
-                leaveFrom="transform opacity-100 scale-100"
-                leaveTo="transform opacity-0 scale-95"
-              >
-                <Menu.Items className="absolute right-0 z-10 mt-2 w-96 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                  <div className="py-1">
-                    <Menu.Item>
-                      <div className="container mx-auto">
-                        <div className="">
-                          <div className="uppercase font-semibold no-underline text-base text-black p-0 pt-2">
-                            Tổng sản phẩm ({itemAmount})
-                          </div>
-                          <hr />
-                          <div className="flex flex-col gap-y-2 h-[520px] lg:h-[640ps] overflow-y-auto overflow-x-hidden border-b">
-                            {cart.map((item) => {
-                              return (
-                                <CartItem
-                                  id={item.id}
-                                  img={item.image}
-                                  title={item.title}
-                                  amount={item.amount}
-                                  price={item.price}
-                                />
-                              );
-                            })}
-                          </div>
-                          <hr />
-                          <div className="flex w-full justify-between items-center mb-2 pl-2 mt-2">
-                            <span className="font-semibold">TỔNG TIỀN: {parseFloat(total).toFixed(2)}đ</span>
-                            <div
-                              onClick={clearCart}
-                              className="cursor-pointer py-4 bg-red-500 text-white w-12 h-12 justify-center items-center text-xl flex border rounded-md hover:bg-red-300"
-                            >
-                              <TrashIcon className="h-6 w-6" aria-hidden="true" />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </Menu.Item>
-                  </div>
-                </Menu.Items>
-              </Transition>
-            </Menu>
-          </div>
-
-          <div className="hidden lg:flex lg:justify-end">
+          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             <Menu as="div" className="relative inline-block text-left">
               <div>
                 <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
@@ -217,6 +155,19 @@ function TailwindHeader() {
               </Transition>
             </Menu>
           </div>
+          <div
+            onClick={() => setIsOpen(!isOpen)}
+            className=" cursor-pointer flex relative lg:flex ml-3 lg:justify-end max-w-[50px]"
+          >
+            <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
+            <div
+              className="bg-red-500 absolute -right-1 -top-1 text-[12px] w-[18px] h-[18px] text-white
+            rounded-full flex justify-center items-center"
+            >
+              {itemAmount}
+            </div>
+          </div>
+          <SideBarCart />
         </nav>
         <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
           <div className="fixed inset-0 z-10" />

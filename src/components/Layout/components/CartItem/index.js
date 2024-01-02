@@ -1,32 +1,30 @@
 import { useContext } from 'react';
 import { CartContext } from '~/context/CartContext/index';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 
 function CartItem(props) {
   const { removeFromCart, increaseAmount, decreaseAmount } = useContext(CartContext);
   return (
-    <div className="flex py-6">
-      <div class="h-32 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200 mt-2 flex items-center">
-        <img
-          src={props.img}
-          alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt."
-          class="w-17 h-17 object-cover object-center"
-        />
+    <div className="flex py-3">
+      <div className="w-32 min-h-[100px] flex items-center justify-center gap-x-2">
+        <div>
+          <img
+            src={props.img}
+            alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt."
+            class="max-w-[80px] h-17 object-cover object-center"
+          />
+        </div>
       </div>
 
       <div class="ml-4 flex flex-1 flex-col">
         <div>
           <div class="flex justify-between text-base font-medium text-gray-900">
-            <h3>
-              <a
-                href={`/product-detail/${props.productId}`}
-                className="font-semibold no-underline text-base text-black p-0"
-              >
-                {props.title}({props.price}đ)
-              </a>
-            </h3>
-            <div className="flex">
-              <p class="ml-4 mt-2 text-sm">{parseFloat(props.price * props.amount).toFixed(2)}đ</p>
-            </div>
+            <a href={`/product-detail/${props.id}`} className="font-semibold no-underline text-base text-black p-0">
+              {props.title}
+            </a>
+            <button onClick={() => removeFromCart(props.id)} type="button" className="font-medium align-middle">
+              <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+            </button>
           </div>
           <p class="mt-1 text-sm text-gray-500">Salmon</p>
         </div>
@@ -46,15 +44,13 @@ function CartItem(props) {
               +
             </div>
           </div>
-          <div class="flex">
-            <button
-              onClick={() => removeFromCart(props.id)}
-              type="button"
-              className="font-medium align-middle text-indigo-600 hover:text-indigo-500"
-            >
-              Xóa
-            </button>
+          <div class="flex-1 flex justify-around items-center text-sm font-medium">
+            {parseFloat(props.price).toFixed(2)}đ
           </div>
+          <div class="flex-1 flex justify-end items-center text-sm font-medium">
+            {parseFloat(props.price * props.amount).toFixed(2)}đ
+          </div>
+          <div class="flex"></div>
         </div>
       </div>
     </div>

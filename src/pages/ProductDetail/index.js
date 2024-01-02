@@ -1,163 +1,383 @@
-import React, { useEffect, useState } from 'react';
-import Container from 'react-bootstrap/Container';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import InputGroup from 'react-bootstrap/InputGroup';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import React, { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './ProductDetail.modules.scss';
-import Circle from '@uiw/react-color-circle';
+
 import { useParams } from 'react-router-dom';
-import { getSingleProduct } from '~/API/api';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import { ApiContext } from '~/context/ApiContext';
+import { CartContext } from '~/context/CartContext';
 
 const cx = classNames.bind(styles);
 
 function ProductDetail() {
   let { productId } = useParams();
-  const [product, setProduct] = useState([]);
+  const { product, FindProductById } = useContext(ApiContext);
+  const { addToCart } = useContext(CartContext);
 
-  useEffect(() => {
-    getSingleProduct(productId).then((data) => {
-      setProduct(data);
-      console.log(data);
-    });
-  }, []);
-
-  const sizeArr = [
-    {
-      id: 1,
-      name: 'X',
-    },
-    {
-      id: 2,
-      name: 'L',
-    },
-    {
-      id: 3,
-      name: 'XL',
-    },
-  ];
-
-  const [checked, setChecked] = useState();
-
-  const [counter, setCounter] = useState(1);
-
-  const handleIncreaseNumber = () => {
-    setCounter(counter + 1);
-  };
-
-  const handleDecreaseNumber = () => {
-    if (counter > 1) setCounter(counter - 1);
-  };
+  //find product by id
+  FindProductById(productId);
 
   return (
-    <Container className="wrapper">
-      <Row>
-        <div className="col-md-8">
-          <div className="pro-img-details">
-            <img src={product.image} alt="" className="img-detail" />
-          </div>
-        </div>
-        <div className="col-md-4">
-          <h5 className={cx('product-name')}>{product.title}</h5>
-          <hr />
-          <h5 className={cx('product-price')}>{product.price},000 VND</h5>
-          <div className="mt-3">Thông tin sản phẩm</div>
-          <ul className={cx('product-description')}>
-            <li className={cx('product-description-element')}>{product.description}</li>
-          </ul>
-          <div className="mt-3">
-            <span>Màu sắc</span>
-            <Circle colors={['#f1f1f1', '#000000', '#d0d0d0']} />
-          </div>
-          <div className="mt-3">
-            <span>Size: </span>
-            <div className={cx('product-size')}>
-              {Array.from(sizeArr).map((sizeArr) => (
-                <div key={sizeArr.id}>
-                  <input
-                    checked={checked === sizeArr.id}
-                    id={sizeArr.name}
-                    type="radio"
-                    className={cx('product-size-element-radio')}
-                    onChange={() => setChecked(sizeArr.id)}
-                  ></input>
-                  <label for={sizeArr.name} className={cx('product-size-element-label')}>
-                    {sizeArr.name}
-                  </label>
-                </div>
-              ))}
+    <div>
+      <section className="h-28"></section>
+      <div class="bg-white">
+        <div class="pt-6">
+          <div class="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+            <div class="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
+              <img
+                src={product.image}
+                alt="Two each of gray, white, and black shirts laying flat."
+                class="h-full w-full object-cover object-center"
+              />
+            </div>
+            <div class="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
+              <div class="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
+                <img
+                  src="https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-01.jpg"
+                  alt="Model wearing plain black basic tee."
+                  class="h-full w-full object-cover object-center"
+                />
+              </div>
+              <div class="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
+                <img
+                  src="https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg"
+                  alt="Model wearing plain gray basic tee."
+                  class="h-full w-full object-cover object-center"
+                />
+              </div>
+            </div>
+            <div class="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
+              <img
+                src="https://tailwindui.com/img/ecommerce-images/product-page-02-featured-product-shot.jpg"
+                alt="Model wearing plain white basic tee."
+                class="h-full w-full object-cover object-center"
+              />
             </div>
           </div>
 
-          <div className={cx('product-number-of')}>
-            <InputGroup className="mb-3">
-              <Button variant="outline-secondary" onClick={handleDecreaseNumber}>
-                -
-              </Button>
-              <Form.Control
-                className="bg-white"
-                aria-label="Example text with two button addons"
-                value={counter}
-                disabled
-              />
-              <Button variant="outline-secondary" onClick={handleIncreaseNumber}>
-                +
-              </Button>
-            </InputGroup>
-          </div>
-          <div className={cx('product-status')}>
-            Trạng thái: <b className="text-danger ms-1">Còn hàng</b>
-          </div>
-          <div className={cx('product-order-btn')}>THÊM VÀO GIỎ HÀNG</div>
-        </div>
-      </Row>
-      <Row className={cx('product-detailed-description')}>
-        <h3 className="d-flex justify-content-center mt-5">Mô tả sản phẩm</h3>
-        <p>{product.description}</p>
-      </Row>
+          <div class="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
+            <div class="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
+              <h1 class="text-xl font-bold tracking-tight text-gray-900 sm:text-2xl">{product.title}</h1>
+            </div>
 
-      <Row className={cx('product-recommend')}>
-        <h3 className="d-flex justify-content-center mt-3">Sản phẩm tương tự</h3>
-        <Row xs={1} md={5} className=" d-flex justify-content-center mb-5">
-          {Array.from({ length: 5 }).map((_, idx) => (
-            <Col key={idx} className="p-3 d-flex justify-content-center">
-              <div className={cx('item-cards')}>
-                <div className={cx('img-container')}>
-                  <div className="d-flex justify-content-center fw-normal">
-                    <a href="/product-detail">
-                      <img
-                        src="https://dictionary.cambridge.org/vi/images/thumb/Tshirt_noun_001_18267.jpg?version=5.0.338"
-                        className={cx('item-img')}
-                        href="/product-detail"
+            <div class="mt-4 lg:row-span-3 lg:mt-0">
+              <h2 class="sr-only">Product information</h2>
+              <p class="text-3xl tracking-tight text-gray-900">{product.price}đ</p>
+
+              <div class="mt-6">
+                <h3 class="sr-only">Reviews</h3>
+                <div class="flex items-center">
+                  <div class="flex items-center">
+                    <svg
+                      class="text-gray-900 h-5 w-5 flex-shrink-0"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
+                        clip-rule="evenodd"
                       />
-                    </a>
+                    </svg>
+                    <svg
+                      class="text-gray-900 h-5 w-5 flex-shrink-0"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                    <svg
+                      class="text-gray-900 h-5 w-5 flex-shrink-0"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                    <svg
+                      class="text-gray-900 h-5 w-5 flex-shrink-0"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                    <svg
+                      class="text-gray-200 h-5 w-5 flex-shrink-0"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
                   </div>
-
-                  <div class={cx('icon-right')}>
-                    <a href="" className={cx('cart-icon')}>
-                      <FontAwesomeIcon icon={faCartShopping} style={{ color: '#fff' }} />
-                    </a>
-                  </div>
-                </div>
-                <div className="d-flex justify-content-center">
-                  <Circle colors={['#f1f1f1', '#000000', '#d0d0d0']} />
-                </div>
-                <div className="d-flex justify-content-center fw-normal">
-                  <a href="/product-detail" className={cx('item-name')}>
-                    Tên sản phẩm
+                  <p class="sr-only">4 out of 5 stars</p>
+                  <a href="#" class="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                    117 reviews
                   </a>
                 </div>
-                <div className="d-flex justify-content-center text-danger fw-bold mt-1">{(idx + 1) * 100}.000 VND</div>
               </div>
-            </Col>
-          ))}
-        </Row>
-      </Row>
-    </Container>
+
+              <div class="mt-10">
+                <div>
+                  <h3 class="text-sm font-medium text-gray-900">Color</h3>
+
+                  <fieldset class="mt-4">
+                    <legend class="sr-only">Choose a color</legend>
+                    <div class="flex items-center space-x-3">
+                      <label class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-gray-400">
+                        <input
+                          type="radio"
+                          name="color-choice"
+                          value="White"
+                          class="sr-only"
+                          aria-labelledby="color-choice-0-label"
+                        />
+                        <span id="color-choice-0-label" class="sr-only">
+                          White
+                        </span>
+                        <span
+                          aria-hidden="true"
+                          class="h-8 w-8 bg-white rounded-full border border-black border-opacity-10"
+                        ></span>
+                      </label>
+
+                      <label class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-gray-400">
+                        <input
+                          type="radio"
+                          name="color-choice"
+                          value="Gray"
+                          class="sr-only"
+                          aria-labelledby="color-choice-1-label"
+                        />
+                        <span id="color-choice-1-label" class="sr-only">
+                          Gray
+                        </span>
+                        <span
+                          aria-hidden="true"
+                          class="h-8 w-8 bg-gray-200 rounded-full border border-black border-opacity-10"
+                        ></span>
+                      </label>
+                      <label class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-gray-900">
+                        <input
+                          type="radio"
+                          name="color-choice"
+                          value="Black"
+                          class="sr-only"
+                          aria-labelledby="color-choice-2-label"
+                        />
+                        <span id="color-choice-2-label" class="sr-only">
+                          Black
+                        </span>
+                        <span
+                          aria-hidden="true"
+                          class="h-8 w-8 bg-gray-900 rounded-full border border-black border-opacity-10"
+                        ></span>
+                      </label>
+                    </div>
+                  </fieldset>
+                </div>
+
+                <div class="mt-10">
+                  <div class="flex items-center justify-between">
+                    <h3 class="text-sm font-medium text-gray-900">Size</h3>
+                    <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                      Size guide
+                    </a>
+                  </div>
+
+                  <fieldset class="mt-4">
+                    <legend class="sr-only">Choose a size</legend>
+                    <div class="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
+                      <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 cursor-not-allowed bg-gray-50 text-gray-200">
+                        <input
+                          type="radio"
+                          name="size-choice"
+                          value="XXS"
+                          disabled
+                          class="sr-only"
+                          aria-labelledby="size-choice-0-label"
+                        />
+                        <span id="size-choice-0-label">XXS</span>
+                        <span
+                          aria-hidden="true"
+                          class="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200"
+                        >
+                          <svg
+                            class="absolute inset-0 h-full w-full stroke-2 text-gray-200"
+                            viewBox="0 0 100 100"
+                            preserveAspectRatio="none"
+                            stroke="currentColor"
+                          >
+                            <line x1="0" y1="100" x2="100" y2="0" vector-effect="non-scaling-stroke" />
+                          </svg>
+                        </span>
+                      </label>
+                      <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 cursor-pointer bg-white text-gray-900 shadow-sm">
+                        <input
+                          type="radio"
+                          name="size-choice"
+                          value="XS"
+                          class="sr-only"
+                          aria-labelledby="size-choice-1-label"
+                        />
+                        <span id="size-choice-1-label">XS</span>
+
+                        <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                      </label>
+
+                      <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 cursor-pointer bg-white text-gray-900 shadow-sm">
+                        <input
+                          type="radio"
+                          name="size-choice"
+                          value="S"
+                          class="sr-only"
+                          aria-labelledby="size-choice-2-label"
+                        />
+                        <span id="size-choice-2-label">S</span>
+
+                        <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                      </label>
+
+                      <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 cursor-pointer bg-white text-gray-900 shadow-sm">
+                        <input
+                          type="radio"
+                          name="size-choice"
+                          value="M"
+                          class="sr-only"
+                          aria-labelledby="size-choice-3-label"
+                        />
+                        <span id="size-choice-3-label">M</span>
+
+                        <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                      </label>
+
+                      <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 cursor-pointer bg-white text-gray-900 shadow-sm">
+                        <input
+                          type="radio"
+                          name="size-choice"
+                          value="L"
+                          class="sr-only"
+                          aria-labelledby="size-choice-4-label"
+                        />
+                        <span id="size-choice-4-label">L</span>
+
+                        <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                      </label>
+
+                      <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 cursor-pointer bg-white text-gray-900 shadow-sm">
+                        <input
+                          type="radio"
+                          name="size-choice"
+                          value="XL"
+                          class="sr-only"
+                          aria-labelledby="size-choice-5-label"
+                        />
+                        <span id="size-choice-5-label">XL</span>
+
+                        <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                      </label>
+
+                      <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 cursor-pointer bg-white text-gray-900 shadow-sm">
+                        <input
+                          type="radio"
+                          name="size-choice"
+                          value="2XL"
+                          class="sr-only"
+                          aria-labelledby="size-choice-6-label"
+                        />
+                        <span id="size-choice-6-label">2XL</span>
+
+                        <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                      </label>
+
+                      <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 cursor-pointer bg-white text-gray-900 shadow-sm">
+                        <input
+                          type="radio"
+                          name="size-choice"
+                          value="3XL"
+                          class="sr-only"
+                          aria-labelledby="size-choice-7-label"
+                        />
+                        <span id="size-choice-7-label">3XL</span>
+                        <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                      </label>
+                    </div>
+                  </fieldset>
+                </div>
+
+                <button
+                  onClick={() => addToCart(product, product.id)}
+                  class="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-black px-8 py-3 text-base font-medium text-white hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                >
+                  Thêm vào giỏ hàng
+                </button>
+              </div>
+            </div>
+
+            <div class="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
+              <div>
+                <h3 class="sr-only">Description</h3>
+
+                <div class="space-y-6">
+                  <p class="text-base text-gray-900">{product.description}</p>
+                </div>
+              </div>
+
+              <div class="mt-10">
+                <h3 class="text-sm font-medium text-gray-900">Highlights</h3>
+
+                <div class="mt-4">
+                  <ul role="list" class="list-disc space-y-2 pl-4 text-sm">
+                    <li class="text-gray-400">
+                      <span class="text-gray-600">Hand cut and sewn locally</span>
+                    </li>
+                    <li class="text-gray-400">
+                      <span class="text-gray-600">Dyed with our proprietary colors</span>
+                    </li>
+                    <li class="text-gray-400">
+                      <span class="text-gray-600">Pre-washed &amp; pre-shrunk</span>
+                    </li>
+                    <li class="text-gray-400">
+                      <span class="text-gray-600">Ultra-soft 100% cotton</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="mt-10">
+                <h2 class="text-sm font-medium text-gray-900">Details</h2>
+
+                <div class="mt-4 space-y-6">
+                  <p class="text-sm text-gray-600">
+                    The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our
+                    subscription service and be the first to get new, exciting colors, like our upcoming &quot;Charcoal
+                    Gray&quot; limited release.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 export default ProductDetail;

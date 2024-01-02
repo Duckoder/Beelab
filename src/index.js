@@ -8,14 +8,20 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import { CartProvider } from '~/context/CartContext/index';
+import { ApiProvider } from '~/context/ApiContext/index';
+import { SideProvider } from '~/context/SideBarCartContext/index';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <GlobalStyles>
-      <CartProvider>
-        <App />
-      </CartProvider>
+      <ApiProvider>
+        <SideProvider>
+          <CartProvider>
+            <App />
+          </CartProvider>
+        </SideProvider>
+      </ApiProvider>
     </GlobalStyles>
   </React.StrictMode>,
 );

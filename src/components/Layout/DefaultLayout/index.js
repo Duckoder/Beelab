@@ -10,6 +10,7 @@ function DefaultLayout({ children }) {
   return (
     <div className="relative">
       <TailwindHeader />
+      <section className="h-28"></section>
       <div className={cx('container')}>
         <div className={cx('content')}> {children} </div>
       </div>
