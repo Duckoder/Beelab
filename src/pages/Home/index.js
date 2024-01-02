@@ -51,6 +51,7 @@ function Home() {
                 <div>
                   <ItemCard
                     key={index}
+                    product={product}
                     productId={product.id}
                     productName={product.title}
                     productPrice={product.price}
@@ -60,23 +61,6 @@ function Home() {
               </Col>
             ))}
           </Row>
-
-          // <Row>
-          //   <h3>Sản phẩm</h3>
-          //   {products.map((product, index) => (
-          //     <Row xs={2} sm={3} md={4} key={idx} className="mt-2 d-flex">
-          //       <Col className="p-3">
-          //         <ItemCard key={index} itemName={product.title} itemPrice={product.price} itemImage={product.image} />
-          //       </Col>
-          //     </Row>
-          //   ))}
-
-          //   <Row className="text-center mt-5">
-          //     <a href="/product" className="text-dark">
-          //       Xem thêm
-          //     </a>
-          //   </Row>
-          // </Row>
         ))}
       </Row>
     </div>

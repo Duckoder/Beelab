@@ -38,9 +38,9 @@ export async function getAllCategories() {
   }
 }
 
-export async function getSingleProductByCategory(category) {
+export async function getProductByCategory(category) {
   try {
-    const respone = await axios.get(`https://fakestoreapi.com/products?categories=${category}`);
+    const respone = await axios.get(`https://fakestoreapi.com/products/category/${category}`);
     return respone.data;
   } catch (error) {
     console.log('Error fetching data: ', error.message);

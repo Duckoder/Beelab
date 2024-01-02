@@ -31,7 +31,11 @@ function Login() {
           </a>
         </div>
         <div className={cx('submit')}>
-          <input className={cx('submit-btn')} value={'ĐĂNG NHẬP'} type="button" />
+          <input
+            className="bg-black text-white hover:bg-slate-400 font-bold tracking-[0.1em]"
+            value={'ĐĂNG NHẬP'}
+            type="button"
+          />
         </div>
         <div className={cx('back-btn')}>
           <a className={cx('back')} href="/">
