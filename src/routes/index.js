@@ -18,10 +18,11 @@ import Shirt from '~/pages/Admin/Shirt';
 import Customer from '~/pages/Admin/Customer';
 import Staff from '~/pages/Admin/Staff';
 import Manager from '~/pages/Admin/Manager';
+import Payment from '~/pages/Payment';
 
 const publicRoutes = [
   { path: '/', component: Home },
-  { path: '/product', component: Product },
+  { path: '/product/:category', component: Product },
   { path: '/cartproduct', component: Cart },
   { path: '/size', component: SizeChart },
   { path: '/product-detail/:productId', component: ProductDetail },
@@ -30,6 +31,7 @@ const publicRoutes = [
   { path: '/login-page', component: LoginPage, layout: null },
   { path: '/register-page', component: RegisterPage, layout: null },
   { path: '/forgot-pass', component: ForgotPassword, layout: null },
+  { path: '/payment', component: Payment, layout: null },
   { path: '/adminpage', component: AdminHome, layout: 0 },
   { path: '/customer', component: Customer, layout: 0 },
   { path: '/allproduct', component: AllProduct, layout: 0 },

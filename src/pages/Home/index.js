@@ -25,7 +25,7 @@ function Home() {
             return (
               <div>
                 <div className="uppercase font-semibold text-sm py-4">{category}</div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-[30px] max-w-sm mx-auto md:max-w-none md:mx-0 py-7">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[30px] max-w-sm mx-auto md:max-w-none md:mx-0 py-7">
                   {filteredProduct.map((prod) => {
                     return (
                       <ItemCard

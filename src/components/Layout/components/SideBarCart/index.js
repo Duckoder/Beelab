@@ -42,7 +42,7 @@ function SideBarCart() {
         Đến Giỏ Hàng
       </Link>
       <Link
-        to=""
+        to="/payment"
         className="bg-black flex p-3 justify-center items-center text-white w-full font-medium no-underline mt-2 hover:bg-gray-500"
       >
         Thanh Toán

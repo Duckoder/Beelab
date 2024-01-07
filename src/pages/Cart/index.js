@@ -20,7 +20,7 @@ function Cart() {
             <ShoppingBagIcon className="h-20 w-20" aria-hidden="true" />
           </div>
           <div className="font-semibold text-sm">Bạn chưa có sản phẩm nào</div>
-          <Link to="/product" className="font-semibold text-sm no-underline">
+          <Link to="/product/all " className="font-semibold text-sm no-underline">
             Hãy quay lại và lựa một vài sản phẩm nhé
           </Link>
         </div>
@@ -30,52 +30,112 @@ function Cart() {
 
   return (
     <div className="py-6">
-      <div className="flex">
-        <div className="w-full uppercase font-semibold text-sm lg:text-2xl border-b">Giỏ hàng của bạn</div>
-      </div>
-      <div className="flex flex-col gap-y-2 overflow-y-auto overflow-x-hidden border-b">
-        <div className="flex">
-          <div className="flex flex-1 justify-between">Thông tin sản phẩm</div>
-          <div className="flex flex-1 justify-around">Đơn giá</div>
-          <div className="flex justify-end mr-32">Số lượng</div>
-          <div className="flex  justify-end">Thành tiền</div>
-        </div>
-        {cart.map((item) => {
-          return (
-            <div className="flex py-3">
-              <div className="w-32 min-h-[100px] flex items-center justify-center gap-x-2">
-                <div>
-                  <img
-                    src={item.image}
-                    alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt."
-                    class=" max-w-[80px] h-17 object-cover object-center"
-                  />
-                </div>
-              </div>
-
-              <div class="ml-4 flex flex-1 flex-col">
-                <div>
-                  <div class="flex justify-between text-base font-medium text-gray-900 xs:max-w-[150px] md:max-w-[250px] xl:max-w-[250px]">
-                    <a
-                      href={`/product-detail/${item.id}`}
-                      className="font-semibold no-underline text-base text-black p-0"
-                    >
-                      {item.title}
-                    </a>
-                  </div>
-                  <p class="mt-1 text-sm text-gray-500">Salmon</p>
-                  <button
-                    onClick={() => removeFromCart(item.id)}
-                    type="button"
-                    className="text-sm text-gray-500 font-medium"
-                  >
-                    Xóa
-                  </button>
-                </div>
-              </div>
+      <div class="container mx-auto mt-10">
+        <div class="flex shadow-md my-10">
+          <div class="w-3/4 bg-white px-10 py-10">
+            <div class="flex justify-between border-b pb-8">
+              <h1 class="font-semibold text-2xl">Giỏ hàng</h1>
+              <h2 class="font-semibold text-2xl">{itemAmount} Sản phẩm</h2>
             </div>
-          );
-        })}
+            <div class="flex mt-10 mb-5">
+              <h3 class="font-semibold text-gray-600 text-xs uppercase w-2/5">Chi tiết sản phẩm</h3>
+              <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 ">Số lượng</h3>
+              <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 ">Đơn Giá</h3>
+              <h3 class="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 ">Tổng</h3>
+            </div>
+
+            {cart.map((item) => {
+              return (
+                <div class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
+                  <div class="flex w-2/5">
+                    <div class="w-20">
+                      <img
+                        class="h-24"
+                        src={item.image}
+                        alt=""
+                        className="max-w-[80px] h-17 object-cover object-center"
+                      />
+                    </div>
+                    <div class="flex flex-col justify-between ml-4 flex-grow">
+                      <span class="font-bold text-sm">{item.title}</span>
+                      <span class="text-red-500 text-xs uppercase">{item.category}</span>
+                      <div
+                        onClick={() => removeFromCart(item.id)}
+                        class="font-semibold hover:text-red-500 text-gray-500 text-xs cursor-pointer"
+                      >
+                        Xóa
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex justify-center w-1/5">
+                    <svg
+                      onClick={() => decreaseAmount(item.id)}
+                      class="fill-current text-gray-600 w-3 cursor-pointer"
+                      viewBox="0 0 448 512"
+                    >
+                      <path d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
+                    </svg>
+
+                    <input class="mx-2 border text-center w-8" disabled value={item.amount} />
+
+                    <svg
+                      onClick={() => increaseAmount(item.id)}
+                      class="fill-current text-gray-600 w-3 cursor-pointer"
+                      viewBox="0 0 448 512"
+                    >
+                      <path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
+                    </svg>
+                  </div>
+                  <span class="text-center w-1/5 font-semibold text-sm">{parseFloat(item.price).toFixed(3)}đ</span>
+                  <span class="text-center w-1/5 font-semibold text-sm">
+                    {parseFloat(item.price * item.amount).toFixed(3)}đ
+                  </span>
+                </div>
+              );
+            })}
+
+            <a href="/product/all" class="flex font-semibold text-indigo-600 text-sm mt-10">
+              <svg class="fill-current mr-2 text-indigo-600 w-4" viewBox="0 0 448 512">
+                <path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z" />
+              </svg>
+              Quay lại mua sắm
+            </a>
+          </div>
+
+          <div id="summary" class="w-1/4 px-8 py-10">
+            <h1 class="font-semibold text-2xl border-b pb-8">Đơn hàng</h1>
+            <div class="flex justify-between mt-10 mb-5">
+              <span class="font-semibold text-sm uppercase">Số lượng ({itemAmount})</span>
+              <span class="font-semibold text-sm">{parseFloat(total).toFixed(3)}đ</span>
+            </div>
+            <div>
+              <label class="font-medium inline-block mb-3 text-sm uppercase">Vận chuyển</label>
+              <select class="block p-2 text-gray-600 w-full text-sm">
+                <option>Gói tiêu chuẩn - $10.00</option>
+              </select>
+            </div>
+            <div class="py-10">
+              <label for="promo" class="font-semibold inline-block mb-3 text-sm uppercase">
+                Mã giảm giá
+              </label>
+              <input type="text" id="promo" placeholder="Nhập mã" class="p-2 text-sm w-full" />
+            </div>
+            <button class="font-semibold bg-red-500 hover:bg-red-600 px-5 py-2 text-sm text-white uppercase w-full">
+              Áp dụng
+            </button>
+            <div class="border-t mt-8">
+              <div class="flex font-semibold justify-between py-6 text-sm uppercase">
+                <span>Tổng tiền</span>
+                <span>{parseFloat(total).toFixed(3)}đ</span>
+              </div>
+              <button class="bg-black font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
+                <a href="/payment" className="text-white no-underline">
+                  Thanh toán
+                </a>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

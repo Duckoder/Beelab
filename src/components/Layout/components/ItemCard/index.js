@@ -38,7 +38,7 @@ function Item(props) {
         <Link to={`/product-detail/${props.productId}`} className="no-underline">
           <h2 className="font-semibold mb-1 text-sm text-black leading-4">{props.productName}</h2>
         </Link>
-        <div className="text-red-500 font-semibold ">{props.productPrice}đ</div>
+        <div className="text-red-500 font-semibold ">{parseFloat(props.productPrice).toFixed(3)}đ</div>
       </div>
     </div>
   );

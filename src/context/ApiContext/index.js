@@ -5,6 +5,7 @@ export const ApiContext = createContext();
 
 export const ApiProvider = ({ children }) => {
   const [product, setProduct] = useState([]);
+  const [provinces, setProvinces] = useState([]);
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [productByCategory, setProductByCategory] = useState([]);
@@ -27,11 +28,24 @@ export const ApiProvider = ({ children }) => {
     fetchCategories();
   }, []);
 
+  //fetch provinces
+  useEffect(() => {
+    const fetchProvinces = async () => {
+      const respone = await axios.get('https://provinces.open-api.vn/api/p/');
+      setProvinces(respone.data);
+    };
+    fetchProvinces();
+  }, []);
+
   //fetch by category
   const FetchProductByCategory = (category) => {
     useEffect(() => {
       const fetchProd = async () => {
-        const respone = await axios.get(`https://fakestoreapi.com/products/category/${category}`);
+        const respone = await axios.get(
+          category === 'all'
+            ? 'https://fakestoreapi.com/products'
+            : `https://fakestoreapi.com/products/category/${category}`,
+        );
         setProductByCategory(respone.data);
       };
       fetchProd();
@@ -50,7 +64,7 @@ export const ApiProvider = ({ children }) => {
 
   return (
     <ApiContext.Provider
-      value={{ product, products, categories, FetchProductByCategory, productByCategory, FindProductById }}
+      value={{ product, products, categories, FetchProductByCategory, productByCategory, FindProductById, provinces }}
     >
       {children}
     </ApiContext.Provider>

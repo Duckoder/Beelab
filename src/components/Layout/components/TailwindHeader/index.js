@@ -5,14 +5,8 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { SideBarCartContext } from '~/context/SideBarCartContext';
 import SideBarCart from '~/components/Layout/components/SideBarCart';
 import { CartContext } from '~/context/CartContext/index';
+import { ApiContext } from '~/context/ApiContext';
 
-const products = [
-  { name: 'Tất cả sản phẩm', href: '/product' },
-  { name: "Men's Clothing", href: '/product' },
-  { name: 'Jewelery', href: '/product' },
-  { name: 'Electronics', href: '/product' },
-  { name: 'Womens clothing', href: '/product' },
-];
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
@@ -20,7 +14,15 @@ function classNames(...classes) {
 function TailwindHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { itemAmount } = useContext(CartContext);
+  const { categories } = useContext(ApiContext);
   const { setIsOpen, isOpen } = useContext(SideBarCartContext);
+
+  const products = categories.map((item) => ({
+    name: item,
+    href: `/product/${item}`,
+  }));
+  const allProd = { name: 'Tất cả sản phẩm', href: '/product/all' };
+  products.push(allProd);
 
   return (
     <div className="w-full top-0 mb-3 fixed z-50 shadow-2xl">

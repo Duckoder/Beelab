@@ -18,7 +18,6 @@ function ProductDetail() {
 
   return (
     <div>
-      <section className="h-28"></section>
       <div class="bg-white">
         <div class="pt-6">
           <div class="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
@@ -61,7 +60,7 @@ function ProductDetail() {
 
             <div class="mt-4 lg:row-span-3 lg:mt-0">
               <h2 class="sr-only">Product information</h2>
-              <p class="text-3xl tracking-tight text-gray-900">{product.price}đ</p>
+              <p class="text-3xl tracking-tight text-gray-900">{parseFloat(product.price).toFixed(3)}đ</p>
 
               <div class="mt-6">
                 <h3 class="sr-only">Reviews</h3>
