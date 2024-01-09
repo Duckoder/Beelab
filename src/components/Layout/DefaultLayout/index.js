@@ -8,7 +8,7 @@ const cx = classNames.bind(styles);
 
 function DefaultLayout({ children }) {
   return (
-    <div className="relative">
+    <div className="relative font-sans">
       <TailwindHeader />
       <section className="h-28"></section>
       <div className={cx('container')}>

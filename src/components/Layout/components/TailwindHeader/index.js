@@ -35,7 +35,7 @@ function TailwindHeader() {
                 src="https://i.pinimg.com/564x/b4/4b/33/b44b3329026166543b583614ba455865.jpg"
                 alt=""
               />
-              <span className="flex items-center gap-x-1 text-lg font-semibold leading-6 tracking-[0.3em] text-gray-900">
+              <span className="flex font-sans items-center gap-x-1 text-[1.4rem] font-semibold leading-6 tracking-[10px] text-gray-900">
                 BEELAB
               </span>
             </a>
@@ -56,7 +56,7 @@ function TailwindHeader() {
               src="https://i.pinimg.com/564x/b4/4b/33/b44b3329026166543b583614ba455865.jpg"
               alt=""
             />
-            <span className="flex items-center gap-x-1 text-lg font-semibold leading-6 tracking-[0.3em] text-gray-900">
+            <span className="flex font-sans items-center gap-x-1 text-[1.2rem] font-semibold leading-6 tracking-[0.3em] text-gray-900">
               BEELAB
             </span>
           </div>

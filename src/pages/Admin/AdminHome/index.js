@@ -1,5 +1,9 @@
 import { FaRegCalendarMinus, FaEllipsisV } from 'react-icons/fa';
 import {
+  PieChart,
+  Pie,
+  Sector,
+  Cell,
   LineChart,
   Line,
   XAxis,
@@ -70,6 +74,28 @@ const dataProduct = [
     amt: 2100,
   },
 ];
+
+const dataPieChart = [
+  { name: 'Group A', value: 400 },
+  { name: 'Group B', value: 300 },
+  { name: 'Group C', value: 300 },
+  { name: 'Group D', value: 200 },
+];
+
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+
+const RADIAN = Math.PI / 180;
+const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+  return (
+    <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+      {`${(percent * 100).toFixed(0)}%`}
+    </text>
+  );
+};
 
 function AdminHome() {
   return (
@@ -163,7 +189,7 @@ function AdminHome() {
         </div>
       </div>
       <div className="flex">
-        <div className="mt-[22px] w-[50%] h-auto gap-[10px]">
+        <div className="mt-[22px] w-[70%] h-auto mr-4">
           <div className="border bg-white shadow-md cursor-pointer rounded-[4px]">
             <div className="bg-[#f8f9fc] flex items-center justify-between py-[15px] px-[20px] border-b-[1px] border-[#edede]">
               <h5 className="font-bold">Hàng hóa</h5>
@@ -194,33 +220,30 @@ function AdminHome() {
             </div>
           </div>
         </div>
-        <div className="mt-[22px] w-[50%] h-auto ml-4">
+        <div className="mt-[22px] w-[30%] h-auto gap-[10px]">
           <div className="border bg-white shadow-md cursor-pointer rounded-[4px]">
             <div className="bg-[#f8f9fc] flex items-center justify-between py-[15px] px-[20px] border-b-[1px] border-[#edede]">
-              <h5 className="font-bold">Hàng hóa</h5>
+              <h5 className="font-bold">Khách hàng</h5>
               <FaEllipsisV color="gray" className="cursor-pointer" />
             </div>
             <div className="mt-[2px]">
               <ResponsiveContainer width="100%" height={450}>
-                <BarChart
-                  width={500}
-                  height={300}
-                  data={dataProduct}
-                  margin={{
-                    top: 5,
-                    right: 30,
-                    left: 20,
-                    bottom: 5,
-                  }}
-                  barSize={20}
-                >
-                  <XAxis dataKey="name" scale="point" padding={{ left: 10, right: 10 }} />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <Bar dataKey="pv" fill="#8884d8" background={{ fill: '#eee' }} />
-                </BarChart>
+                <PieChart width={400} height={400}>
+                  <Pie
+                    data={dataPieChart}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={false}
+                    label={renderCustomizedLabel}
+                    outerRadius={80}
+                    fill="#8884d8"
+                    dataKey="value"
+                  >
+                    {data.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                </PieChart>
               </ResponsiveContainer>
             </div>
           </div>

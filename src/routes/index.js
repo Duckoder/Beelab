@@ -8,17 +8,16 @@ import About from '~/pages/About';
 import LoginPage from '~/pages/Login';
 import RegisterPage from '~/pages/Register';
 import ForgotPassword from '~/pages/ForgotPassword';
-import AdminHome from '~/pages/Admin/AdminHome';
-import AllProduct from '~/pages/Admin/AllProduct';
-import Bill from '~/pages/Admin/Bill';
-import Accessory from '~/pages/Admin/Accessory';
-import Jacket from '~/pages/Admin/Jacker';
-import Pants from '~/pages/Admin/Pants';
-import Shirt from '~/pages/Admin/Shirt';
-import Customer from '~/pages/Admin/Customer';
-import Staff from '~/pages/Admin/Staff';
-import Manager from '~/pages/Admin/Manager';
 import Payment from '~/pages/Payment';
+import AdminHome from '~/pages/Admin/AdminHome';
+import CategoryManager from '~/pages/Admin/CategoryManager';
+import ProductManager from '~/pages/Admin/ProductManager';
+import UserManager from '~/pages/Admin/UserManager';
+import RoleManager from '~/pages/Admin/RoleManager';
+import EditProduct from '~/pages/Admin/EditProduct';
+import Bill from '~/pages/Admin/Bill';
+import BillDetail from '~/pages/Admin/BillDetail';
+import CreateProduct from '~/pages/Admin/CreateProduct';
 
 const publicRoutes = [
   { path: '/', component: Home },
@@ -33,15 +32,14 @@ const publicRoutes = [
   { path: '/forgot-pass', component: ForgotPassword, layout: null },
   { path: '/payment', component: Payment, layout: null },
   { path: '/adminpage', component: AdminHome, layout: 0 },
-  { path: '/customer', component: Customer, layout: 0 },
-  { path: '/allproduct', component: AllProduct, layout: 0 },
-  { path: '/shirt', component: Shirt, layout: 0 },
-  { path: '/accessory', component: Accessory, layout: 0 },
-  { path: '/jacket', component: Jacket, layout: 0 },
-  { path: '/pants', component: Pants, layout: 0 },
-  { path: '/staff', component: Staff, layout: 0 },
-  { path: '/manager', component: Manager, layout: 0 },
-  { path: '/bill', component: Bill, layout: 0 },
+  { path: '/adminpage/category-manager', component: CategoryManager, layout: 0 },
+  { path: '/adminpage/product-manager', component: ProductManager, layout: 0 },
+  { path: '/adminpage/user-manager', component: UserManager, layout: 0 },
+  { path: '/adminpage/role-manager', component: RoleManager, layout: 0 },
+  { path: '/adminpage/bill', component: Bill, layout: 0 },
+  { path: '/adminpage/product-manager/create-product', component: CreateProduct, layout: 0 },
+  { path: '/adminpage/product-manager/view', component: EditProduct, layout: 0 },
+  { path: '/adminpage/bill/bill-detail', component: BillDetail, layout: 0 },
 ];
 //private routes, user must login to see
 const privateRoutes = [];

@@ -10,9 +10,9 @@ function Home() {
     <div>
       <div className="container mx-auto">
         <Carousel />
-        <div>
-          <h3 className="flex font-semibold justify-center py-2 mt-2">Enjoy Your Youth!</h3>
-          <div className="flex font-normal justify-center items-center text-center mb-2">
+        <div className="flex flex-col py-8 justify-center items-center">
+          <h3 className="flex w-full font-semibold justify-center py-2 mt-2">Enjoy Your Youth!</h3>
+          <div className="flex font-normal justify-center items-center text-center mb-2 w-[75%]">
             Không chỉ là thời trang, BEELAB còn là “phòng thí nghiệm” của tuổi trẻ - nơi nghiên cứu và cho ra đời nguồn
             năng lượng mang tên “Youth”. Chúng mình luôn muốn tạo nên những trải nghiệm vui vẻ, năng động và trẻ trung.
           </div>

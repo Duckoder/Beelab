@@ -3,44 +3,12 @@ import { FaSearch } from 'react-icons/fa';
 import { PencilSquareIcon, TrashIcon, FunnelIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 
-function Bill() {
+function ProductManager() {
   const data = [
-    {
-      id: ' ca3cf812-9a1b-44db-a597-ad75635a8976',
-      customer: 'Áo',
-      total: 123000,
-      status: 'Chờ thanh toán',
-      payment: 'Momo',
-      paymentStatus: 'Đã thanh toán',
-      date: '12/09/2003',
-    },
-    {
-      id: ' ca3cf812-9a1b-44db-a597-ad75635a8976',
-      customer: 'Áo',
-      total: 123000,
-      status: 'Chờ thanh toán',
-      payment: 'Momo',
-      paymentStatus: 'Đã thanh toán',
-      date: '12/09/2003',
-    },
-    {
-      id: ' ca3cf812-9a1b-44db-a597-ad75635a8976',
-      customer: 'Áo',
-      total: 123000,
-      status: 'Chờ thanh toán',
-      payment: 'Momo',
-      paymentStatus: 'Đã thanh toán',
-      date: '12/09/2003',
-    },
-    {
-      id: ' ca3cf812-9a1b-44db-a597-ad75635a8976',
-      customer: 'Áo',
-      total: 123000,
-      status: 'Chờ thanh toán',
-      payment: 'Momo',
-      paymentStatus: 'Đã thanh toán',
-      date: '12/09/2003',
-    },
+    { name: 'Sơ mi', category: 'Áo', description: 'Áo Sơ Mi', price: 123, sale: 12, date: 'oko' },
+    { name: 'Quần đùi', category: 'Quần đùi', description: 'Áo Sơ Mi', price: 123, sale: 12, date: 'oko' },
+    { name: 'Sơ mi', category: 'Áo', description: 'Áo Sơ Mi', price: 123, sale: 12, date: 'oko' },
+    { name: 'Sơ mi', category: 'Áo', description: 'Áo Sơ Mi', price: 123, sale: 12, date: 'oko' },
   ];
 
   const [isOpen, setIsOpen] = useState(false);
@@ -91,6 +59,12 @@ function Bill() {
           </div>
         </div>
         <div className="flex items-center ">
+          <Link
+            to="create-product"
+            className="rounded-[8px] bg-[#334155] hover:bg-[#4b5f7b] text-[0.8rem] px-3 py-[10px] text-white no-underline"
+          >
+            + Thêm danh mục
+          </Link>
           <div className="relative inline-block text-left">
             <button
               onClick={toggleDropdown}
@@ -123,19 +97,26 @@ function Bill() {
                     </div>
                     <div className="my-3">
                       <div className="flex items-center justify-between w-full border-b-2">
-                        <div>Khoảng thời gian</div>
+                        <div>Danh mục</div>
                         <button onClick={() => toggleDropdown1()}>
                           <ChevronDownIcon className="h-4 w-4 mx-[3px]" />
                         </button>
                       </div>
                       <div className={`${!isOpenMenu1 && 'h-0 overflow-hidden'} relative mt-2`}>
-                        <input type="date" className="mr-2 p-2" />
-                        <input type="date" className="p-2" />
+                        <select
+                          className={`w-full px-3 py-[5px] text-gray-500 bg-white
+                         border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600`}
+                        >
+                          <option defaultChecked>Không chọn</option>
+                          <option>Laravel 9 with React</option>
+                          <option>React with Tailwind CSS</option>
+                          <option>React With Headless UI</option>
+                        </select>
                       </div>
                     </div>
                     <div className="my-3">
                       <div className="flex items-center justify-between w-full border-b-2">
-                        <div>Khoảng tiền</div>
+                        <div>Mức giá</div>
                         <button onClick={() => toggleDropdown2()}>
                           <ChevronDownIcon className="h-4 w-4 mx-[3px]" />
                         </button>
@@ -151,7 +132,7 @@ function Bill() {
                     </div>
                     <div className="my-3">
                       <div className="flex items-center justify-between w-full border-b-2">
-                        <div>Trạng thái đơn hàng</div>
+                        <div>Size</div>
                         <button onClick={() => toggleDropdown3()}>
                           <ChevronDownIcon className="h-4 w-4 mx-[3px]" />
                         </button>
@@ -170,7 +151,7 @@ function Bill() {
                     </div>
                     <div className="my-3">
                       <div className="flex items-center justify-between w-full border-b-2">
-                        <div>Trạng thái thanh toán</div>
+                        <div>Màu</div>
                         <button onClick={() => toggleDropdown4()}>
                           <ChevronDownIcon className="h-4 w-4 mx-[3px]" />
                         </button>
@@ -197,30 +178,31 @@ function Bill() {
       <table className="min-w-full bg-white border border-gray-300 rounded">
         <thead>
           <tr className="bg-gray-100">
-            <th className="py-2 pl-5 pr-7  border-b text-[0.8rem]">Mã đơn</th>
-            <th className="py-2 px-4 border-b text-[0.8rem]">Khách hàng</th>
-            <th className="py-2 px-4 border-b text-[0.8rem]">Tổng tiền</th>
-            <th className="py-2 px-4 border-b text-[0.8rem]">Tình trạng</th>
-            <th className="py-2 px-1 border-b text-[0.8rem]">Thanh toán</th>
-            <th className="py-2 px-4 border-b text-[0.8rem]">Trạng thái thanh toán</th>
-            <th className="py-2 px-4 border-b text-[0.8rem]">Ngày đặt</th>
+            <th className="py-2 pl-5 pr-7  border-b text-[0.8rem]">Sản phẩm</th>
+            <th className="py-2 px-4 border-b text-[0.8rem]">Danh mục</th>
+            <th className="py-2 px-4 border-b text-[0.8rem]">Mô tả</th>
+            <th className="py-2 px-4 border-b text-[0.8rem]">Giá tiền</th>
+            <th className="py-2 px-1 border-b text-[0.8rem]">Khuyễn mãi</th>
+            <th className="py-2 px-4 border-b text-[0.8rem]">Ngày tạo</th>
             <th className="py-2 px-4 border-b text-[0.8rem]">Thao tác</th>
+            <th className="py-2 px-4 border-b text-[0.8rem]">Ẩn</th>
           </tr>
         </thead>
         <tbody>
           {data.map((item) => (
             <tr key={item.id} className="text-[0.8rem]">
-              <td className="py-2 pl-5 pr-7 border-b font-bold">{item.id}</td>
-              <td className="py-2 px-4 border-b ">{item.customer}</td>
-              <td className="py-2 px-4 border-b">{parseFloat(item.total).toFixed(3)}đ</td>
-              <td className="py-2 px-4 border-b">{item.status}</td>
-              <td className="py-2 px-1 border-b">{item.payment}</td>
-              <td className="py-2 px-4 border-b">{item.paymentStatus}</td>
+              <td className="py-2 pl-5 pr-7 border-b">{item.name}</td>
+              <td className="py-2 px-4 border-b ">
+                <span className="text-green-800 bg-green-200 rounded px-2 ">{item.category}</span>
+              </td>
+              <td className="py-2 px-4 border-b">{item.description}</td>
+              <td className="py-2 px-4 border-b">{parseFloat(item.price).toFixed(3)}đ</td>
+              <td className="py-2 px-1 border-b">{item.sale}%</td>
               <td className="py-2 px-4 border-b">{item.date}</td>
               <td className="py-2 px-4 border-b">
                 <div className="flex gap-[3px]">
                   <Link
-                    to="bill-detail"
+                    to="view"
                     className="flex items-center no-underline justify-between bg-[#334155] hover:bg-[#4b5f7b] text-white text-[0.7rem] px-[6px] py-[4px] rounded-[5px]"
                   >
                     <PencilSquareIcon className="h-4 w-4 mr-[2px]" />
@@ -231,6 +213,14 @@ function Bill() {
                     Xóa
                   </button>
                 </div>
+              </td>
+              <td className="py-2 px-4 border-b">
+                <label className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    className="form-checkbox rounded border-[#C81E1E] text-[#C81E1E] focus:ring-[#C81E1E] focus:border-[#C81E1E] h-4 w-4"
+                  />
+                </label>
               </td>
             </tr>
           ))}
@@ -256,4 +246,4 @@ function Bill() {
   );
 }
 
-export default Bill;
+export default ProductManager;
