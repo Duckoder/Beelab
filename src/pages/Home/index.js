@@ -1,10 +1,25 @@
 import Carousel from '~/components/Layout/components/Carousel';
 import ItemCard from '~/components/Layout/components/ItemCard';
-import { useContext } from 'react';
-import { ApiContext } from '~/context/ApiContext';
+import { useEffect, useState } from 'react';
+import { getAllProduct, getAllCategory } from '~/service/ApiService';
 
 function Home() {
-  const { categories, products } = useContext(ApiContext);
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const prods = await getAllProduct();
+        const cate = await getAllCategory();
+        setProducts(prods);
+        setCategories(cate);
+      } catch (error) {
+        console.error('Error in component:', error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <div>
@@ -20,23 +35,25 @@ function Home() {
         <div>
           {categories.map((category) => {
             const filteredProduct = products.filter((item) => {
-              return item.category === category;
+              return item.category.name === category.name;
             });
             return (
               <div>
-                <div className="uppercase font-semibold text-sm py-4">{category}</div>
+                {category.status === 1 && <div className="uppercase font-semibold text-sm py-4">{category.name}</div>}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[30px] max-w-sm mx-auto md:max-w-none md:mx-0 py-7">
                   {filteredProduct.map((prod) => {
                     return (
-                      <ItemCard
-                        key={prod.id}
-                        productObj={prod}
-                        productId={prod.id}
-                        productCategory={prod.category}
-                        productImage={prod.image}
-                        productName={prod.title}
-                        productPrice={prod.price}
-                      />
+                      prod.category.status === 1 && (
+                        <ItemCard
+                          key={prod.id}
+                          productObj={prod}
+                          productId={prod.id}
+                          productCategory={prod.category.name}
+                          productImage="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
+                          productName={prod.name}
+                          productPrice={prod.amount}
+                        />
+                      )
                     );
                   })}
                 </div>

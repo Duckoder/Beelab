@@ -57,8 +57,8 @@ function Cart() {
                       />
                     </div>
                     <div class="flex flex-col justify-between ml-4 flex-grow">
-                      <span class="font-bold text-sm">{item.title}</span>
-                      <span class="text-red-500 text-xs uppercase">{item.category}</span>
+                      <span class="font-bold text-sm">{item.name}</span>
+                      <span class="text-red-500 text-xs uppercase">{item.category.name}</span>
                       <div
                         onClick={() => removeFromCart(item.id)}
                         class="font-semibold hover:text-red-500 text-gray-500 text-xs cursor-pointer"
@@ -76,7 +76,7 @@ function Cart() {
                       <path d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
                     </svg>
 
-                    <input class="mx-2 border text-center w-8" disabled value={item.amount} />
+                    <input class="mx-2 border text-center w-8" disabled value={item.numberOf} />
 
                     <svg
                       onClick={() => increaseAmount(item.id)}
@@ -86,9 +86,9 @@ function Cart() {
                       <path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
                     </svg>
                   </div>
-                  <span class="text-center w-1/5 font-semibold text-sm">{parseFloat(item.price).toFixed(3)}đ</span>
+                  <span class="text-center w-1/5 font-semibold text-sm">{parseFloat(item.amount).toFixed(3)}đ</span>
                   <span class="text-center w-1/5 font-semibold text-sm">
-                    {parseFloat(item.price * item.amount).toFixed(3)}đ
+                    {parseFloat(item.numberOf * item.amount).toFixed(3)}đ
                   </span>
                 </div>
               );

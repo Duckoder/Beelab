@@ -1,12 +1,7 @@
-import Circle from '@uiw/react-color-circle';
-import classNames from 'classnames/bind';
-import styles from './ItemCard.module.scss';
 import { CartContext } from '~/context/CartContext/index';
 import { useContext } from 'react';
 import { PlusIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
-
-const cx = classNames.bind(styles);
 
 function Item(props) {
   const { addToCart } = useContext(CartContext);

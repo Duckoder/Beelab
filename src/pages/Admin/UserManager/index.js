@@ -1,16 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { PencilSquareIcon, TrashIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { getAllUser } from '~/service/ApiService';
 
 function UserManager() {
-  const data = [
-    { id: 1, name: 'John Doe', email: 'user@gmail.com', role: 'Khách hàng', phone: '0123456789', dob: '12/09/2003' },
-    { id: 2, name: 'John Doe', email: 'user@gmail.com', role: 'Khách hàng', phone: '0123456789', dob: '12/09/2003' },
-    { id: 3, name: 'John Doe', email: 'user@gmail.com', role: 'Khách hàng', phone: '0123456789', dob: '12/09/2003' },
-    { id: 4, name: 'John Doe', email: 'user@gmail.com', role: 'Khách hàng', phone: '0123456789', dob: '12/09/2003' },
-    { id: 5, name: 'John Doe', email: 'user@gmail.com', role: 'Khách hàng', phone: '0123456789', dob: '12/09/2003' },
-    { id: 6, name: 'John Doe', email: 'user@gmail.com', role: 'Khách hàng', phone: '0123456789', dob: '12/09/2003' },
-  ];
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const us = await getAllUser();
+        setUsers(us);
+      } catch (error) {
+        console.error('Error in component:', error);
+      }
+    };
+    fetchData();
+  }, []);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -27,7 +33,7 @@ function UserManager() {
       <div className="">
         <p className="text-[0.9rem] pb-2 border-b-2">
           Tổng số người dùng:
-          <span className="text-[0.9rem] font-semibold"> 100</span>
+          <span className="text-[0.9rem] font-semibold"> {users.length}</span>
         </p>
       </div>
       <div className="mb-3 flex items-center justify-between">
@@ -54,20 +60,20 @@ function UserManager() {
             <th className="py-2 px-4 border-b text-[0.8rem]">Tên</th>
             <th className="py-2 px-4 border-b text-[0.8rem]">Email</th>
             <th className="py-2 px-4 border-b text-[0.8rem]">SĐT</th>
-            <th className="py-2 px-4 border-b text-[0.8rem]">Loại tài khoản</th>
+            {/* <th className="py-2 px-4 border-b text-[0.8rem]">Loại tài khoản</th> */}
             <th className="py-2 px-4 border-b text-[0.8rem]">Ngày sinh</th>
             <th className="py-2 px-4 border-b text-[0.8rem]">Thao tác</th>
           </tr>
         </thead>
         <tbody>
-          {data.map((item) => (
+          {users.map((item) => (
             <tr key={item.id} className="text-[0.8rem]">
               <td className="py-2 pl-3 pr-1 border-b">{item.id}</td>
-              <td className="py-2 px-4 border-b">{item.name}</td>
+              <td className="py-2 px-4 border-b">{item.full_name}</td>
               <td className="py-2 px-4 border-b">{item.email}</td>
-              <td className="py-2 px-4 border-b">{item.phone}</td>
-              <td className="py-2 px-4 border-b">{item.role}</td>
-              <td className="py-2 px-4 border-b">{item.dob}</td>
+              <td className="py-2 px-4 border-b">{item.phone_number}</td>
+              {/* <td className="py-2 px-4 border-b">{item.role}</td> */}
+              <td className="py-2 px-4 border-b">{item.birthday}</td>
               <td className="py-2 px-4 border-b">
                 <div className="flex gap-[3px]">
                   <button

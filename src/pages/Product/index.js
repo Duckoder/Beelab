@@ -1,23 +1,42 @@
-import classNames from 'classnames/bind';
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid';
-import { useContext } from 'react';
-import { ApiContext } from '~/context/ApiContext';
 import { useParams } from 'react-router-dom';
 import ItemCard from '~/components/Layout/components/ItemCard';
 import { Pagination } from 'antd';
+import { getAllProduct, getAllCategory } from '~/service/ApiService';
 
 function Product() {
   const { category } = useParams();
-  const [page, setPage] = useState(1);
-  const [data, setData] = useState([]);
-  const [recordsPerPage] = useState(3);
-  const [currentPage, setCurrentPage] = useState(1);
-  const { categories, productByCategory, FetchProductByCategory } = useContext(ApiContext);
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [filteredProduct, setFilteredProduct] = useState([]);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-  FetchProductByCategory(category);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const prods = await getAllProduct();
+        const cate = await getAllCategory();
+        setProducts(prods);
+        setCategories(cate);
+      } catch (error) {
+        console.error('Error in component:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const data =
+      category === 'all'
+        ? products
+        : products.filter((item) => {
+            return item.category.name === category;
+          });
+    setFilteredProduct(data);
+  });
 
   const sortOptions = [
     { name: 'Bán chạy nhất', href: '#', current: true },
@@ -28,9 +47,11 @@ function Product() {
   ];
 
   const subCategories = categories.map((item) => ({
-    name: item,
-    href: `/product/${item}`,
+    name: item.name,
+    href: `/product/${item.name}`,
   }));
+
+  subCategories.push({ name: 'Tất cả sản phẩm', href: '/product/all' });
 
   const filters = [
     {
@@ -66,14 +87,6 @@ function Product() {
       ],
     },
   ];
-  const indexOfLastRecord = currentPage * recordsPerPage;
-  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-  const totalProduct = Object.keys(productByCategory).length;
-  const currentRecord = Object.keys(productByCategory).slice(indexOfFirstRecord, indexOfLastRecord);
-  const nPages = Math.ceil(Object.keys(productByCategory).length / recordsPerPage);
-
-  console.log(currentRecord);
-
   return (
     <div className="bg-white">
       <div>
@@ -235,11 +248,11 @@ function Product() {
                           {({ active }) => (
                             <a
                               href={option.href}
-                              className={classNames(
-                                option.current ? 'font-medium text-gray-900' : 'text-gray-500',
+                              className={
+                                (option.current ? 'font-medium text-gray-900' : 'text-gray-500',
                                 active ? 'bg-gray-100' : '',
-                                'block px-4 py-2 text-sm no-underline',
-                              )}
+                                'block px-4 py-2 text-sm no-underline')
+                              }
                             >
                               {option.name}
                             </a>
@@ -334,23 +347,23 @@ function Product() {
 
               {/* Product grid */}
               <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[30px] max-w-sm mx-auto md:max-w-none md:mx-0 py-7">
-                {productByCategory.map((item) => {
+                {filteredProduct.map((prod) => {
                   return (
                     <ItemCard
-                      key={item.id}
-                      productObj={item}
-                      productId={item.id}
-                      productCategory={item.category}
-                      productImage={item.image}
-                      productName={item.title}
-                      productPrice={item.price}
+                      key={prod.id}
+                      productObj={prod}
+                      productId={prod.id}
+                      productCategory={prod.category.name}
+                      productImage={prod.image}
+                      productName={prod.name}
+                      productPrice={prod.amount}
                     />
                   );
                 })}
               </div>
             </div>
             <div className="flex justify-center items-center">
-              <Pagination showQuickJumper defaultCurrent={1} total={Math.ceil(totalProduct / 3) * 10} />
+              <Pagination showQuickJumper defaultCurrent={1} total={100} />
             </div>
           </section>
         </main>

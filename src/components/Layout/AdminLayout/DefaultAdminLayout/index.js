@@ -175,20 +175,14 @@ function DefaultAdminLayout({ children }) {
               }`}
             >
               <li className="flex items-center hover:bg-slate-300 px-2 py-2 my-2 rounded">
-                <Link to="/admimpage/category-manager" className="text-sm no-underline text-black ">
-                  Báo cáo doanh thu
+                <Link to="/adminpage/finacial-report" className="text-sm no-underline text-black ">
+                  Báo cáo tài chính
                 </Link>
               </li>
               <li className="flex items-center hover:bg-slate-300 px-2 py-2 my-2 rounded">
-                <Link to="/admimpage/product-manager" className="text-sm no-underline text-black ">
+                <Link to="/adminpage/product-report" className="text-sm no-underline text-black ">
                   Báo cáo sản phẩm
                 </Link>
-              </li>
-              <li className="flex items-center hover:bg-slate-300 px-2 py-2 my-2 rounded">
-                <Link className="text-sm no-underline text-black ">Báo cáo danh mục</Link>
-              </li>
-              <li className="flex items-center hover:bg-slate-300 px-2 py-2 my-2 rounded">
-                <Link className="text-sm no-underline text-black ">Báo cáo khách hàng</Link>
               </li>
             </ul>
           </div>

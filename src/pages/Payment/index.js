@@ -1,11 +1,40 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Selector from '~/components/Layout/components/Selector';
-import { ApiContext } from '~/context/ApiContext';
 import { BanknotesIcon, CreditCardIcon } from '@heroicons/react/20/solid';
 import CartItem from '~/components/Layout/components/CartItem';
+import { getAllProvinces, vnPayPayment } from '~/service/ApiService';
 
 function Payment() {
-  const { provinces } = useContext(ApiContext);
+  const [provinces, setProvinces] = useState([]);
+  const paymentData = { amount: 1000000, orderInfo: `Thanh toan don hang` };
+  const [redirect, setRedirect] = useState();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const provs = await getAllProvinces();
+        setProvinces(provs);
+      } catch (error) {
+        console.error('Error in component:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const handlePayment = async () => {
+    try {
+      const link = await vnPayPayment(paymentData);
+      console.log(link);
+      window.location.replace(link);
+      // setRedirect(link);
+      // window.location.href = link;
+    } catch (error) {
+      console.error('Error in component:', error);
+    }
+  };
+
   return (
     <div>
       <div className="lg:grid lg:grid-cols-3 md:grid-cols-1">
@@ -202,8 +231,11 @@ function Payment() {
                   100.000đ
                 </span>
               </div>
-              <button class="bg-black font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
-                <a href="/payment" className="text-white no-underline">
+              <button
+                onClick={() => handlePayment()}
+                class="bg-black font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full"
+              >
+                <a href="" className="text-white no-underline">
                   Thanh toán
                 </a>
               </button>

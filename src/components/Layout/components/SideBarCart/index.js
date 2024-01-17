@@ -23,7 +23,9 @@ function SideBarCart() {
       </div>
       <div className="flex flex-col gap-y-2 h-[370px] lg:h-[640ps] overflow-y-auto overflow-x-hidden border-b">
         {cart.map((item) => {
-          return <CartItem id={item.id} img={item.image} title={item.title} amount={item.amount} price={item.price} />;
+          return (
+            <CartItem id={item.id} img={item.image} title={item.name} amount={item.numberOf} price={item.amount} />
+          );
         })}
       </div>
       <div className="flex w-full justify-between items-center mb-2 pl-2 mt-2">

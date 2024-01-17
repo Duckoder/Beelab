@@ -8,7 +8,7 @@ function Bill() {
     {
       id: ' ca3cf812-9a1b-44db-a597-ad75635a8976',
       customer: 'Áo',
-      total: 123000,
+      total: 123,
       status: 'Chờ thanh toán',
       payment: 'Momo',
       paymentStatus: 'Đã thanh toán',
@@ -17,7 +17,7 @@ function Bill() {
     {
       id: ' ca3cf812-9a1b-44db-a597-ad75635a8976',
       customer: 'Áo',
-      total: 123000,
+      total: 123,
       status: 'Chờ thanh toán',
       payment: 'Momo',
       paymentStatus: 'Đã thanh toán',
@@ -26,7 +26,7 @@ function Bill() {
     {
       id: ' ca3cf812-9a1b-44db-a597-ad75635a8976',
       customer: 'Áo',
-      total: 123000,
+      total: 123,
       status: 'Chờ thanh toán',
       payment: 'Momo',
       paymentStatus: 'Đã thanh toán',
@@ -35,7 +35,7 @@ function Bill() {
     {
       id: ' ca3cf812-9a1b-44db-a597-ad75635a8976',
       customer: 'Áo',
-      total: 123000,
+      total: 123,
       status: 'Chờ thanh toán',
       payment: 'Momo',
       paymentStatus: 'Đã thanh toán',

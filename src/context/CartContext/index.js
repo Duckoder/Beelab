@@ -12,7 +12,7 @@ export const CartProvider = ({ children }) => {
   //set total product
   useEffect(() => {
     const total = cart.reduce((accumulator, currentItem) => {
-      return accumulator + currentItem.price * currentItem.amount;
+      return accumulator + currentItem.amount * currentItem.numberOf;
     }, 0);
     setTotal(total);
   });
@@ -21,14 +21,14 @@ export const CartProvider = ({ children }) => {
   useEffect(() => {
     if (cart) {
       const amount = cart.reduce((accumulator, currentItem) => {
-        return accumulator + currentItem.amount;
+        return accumulator + currentItem.numberOf;
       }, 0);
       setItemAmount(amount);
     }
   }, [cart]);
 
   const addToCart = (product, id) => {
-    const newItem = { ...product, amount: 1 };
+    const newItem = { ...product, numberOf: 1 };
     const cartItem = cart.find((item) => {
       return item.id === id;
     });
@@ -36,7 +36,7 @@ export const CartProvider = ({ children }) => {
     if (cartItem) {
       const newCart = [...cart].map((item) => {
         if (item.id === id) {
-          return { ...item, amount: cartItem.amount + 1 };
+          return { ...item, numberOf: cartItem.numberOf + 1 };
         } else {
           return item;
         }
@@ -72,14 +72,14 @@ export const CartProvider = ({ children }) => {
     if (cartItem) {
       const newCart = cart.map((item) => {
         if (item.id === id) {
-          return { ...item, amount: cartItem.amount - 1 };
+          return { ...item, numberOf: cartItem.numberOf - 1 };
         } else {
           return item;
         }
       });
       setCart(newCart);
     }
-    if (cartItem.amount < 2) {
+    if (cartItem.numberOf < 2) {
       removeFromCart(id);
     }
   };

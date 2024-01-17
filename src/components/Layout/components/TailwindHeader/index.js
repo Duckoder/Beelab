@@ -5,7 +5,7 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { SideBarCartContext } from '~/context/SideBarCartContext';
 import SideBarCart from '~/components/Layout/components/SideBarCart';
 import { CartContext } from '~/context/CartContext/index';
-import { ApiContext } from '~/context/ApiContext';
+import { getAllCategory } from '~/service/ApiService';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -14,12 +14,25 @@ function classNames(...classes) {
 function TailwindHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { itemAmount } = useContext(CartContext);
-  const { categories } = useContext(ApiContext);
   const { setIsOpen, isOpen } = useContext(SideBarCartContext);
 
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const cate = await getAllCategory();
+        setCategories(cate);
+      } catch (error) {
+        console.error('Error in component:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
   const products = categories.map((item) => ({
-    name: item,
-    href: `/product/${item}`,
+    name: item.name,
+    href: `/product/${item.name}`,
   }));
   const allProd = { name: 'Tất cả sản phẩm', href: '/product/all' };
   products.push(allProd);

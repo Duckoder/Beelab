@@ -1,14 +1,14 @@
 import { useForm, Controller } from 'react-hook-form';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-function Login() {
+function ChangePass() {
   const {
     control,
     handleSubmit,
-    formState: { errors, isSubmitting, setError },
+    formState: { errors, isSubmitting },
     watch,
   } = useForm();
   //   try {
@@ -33,13 +33,25 @@ function Login() {
   // };
 
   const onSubmit = async (data) => {
+    console.log(data);
     toast.success('Đăng ký thành công, bạn sẽ được chuyển hướng đến trang đăng nhập !!!');
     // setTimeout(() => {
     //   window.location.href = '/login-page';
     // }, 5000);
   };
 
-  const email = watch('email');
+  const password = watch('password');
+  const confirmPassword = (value) => {
+    // Kiểm tra xác minh mật khẩu khớp với mật khẩu đã nhập
+    return value === password || 'Mật khẩu không khớp';
+  };
+
+  // const password = watch('password');
+
+  // const hasUppercase = (value) => {
+  //   // Kiểm tra xem có ít nhất một chữ cái in hoa trong mật khẩu
+  //   return /[A-Z]/.test(value) || 'Mật khẩu phải chữ 1 kí tự in hoa';
+  // };
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -56,39 +68,6 @@ function Login() {
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="space-y-6" action="#" method="POST" onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            <label htmlFor="email" className="block text-sm font-bold leading-6 text-gray-900">
-              Email:
-            </label>
-            <div className="mt-2">
-              <Controller
-                name="email"
-                control={control}
-                rules={{
-                  required: 'Vui lòng nhập email',
-                  pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                    message: 'Email không hợp lệ',
-                  },
-                }}
-                render={({ field }) => (
-                  <div>
-                    <input
-                      className="block w-full rounded-md border-0 py-2 px-3 text-[0.8rem]
-                      text-gray-900 shadow-md ring-1 ring-inset ring-gray-300
-                      placeholder:text-gray-400 focus:ring-2 focus:ring-inset
-                      focus:ring-indigo-600  sm:leading-6"
-                      {...field}
-                    />
-                    <p className="flex bg-[#e54959] text-[#fff] w-fit my-2 px-2 rounded text-[0.8rem]">
-                      <div> {errors.email?.message}</div>
-                    </p>
-                  </div>
-                )}
-              />
-            </div>
-          </div>
-
           <div>
             <label htmlFor="password" className="block text-sm font-bold leading-6 text-gray-900">
               Mật khẩu:
@@ -120,25 +99,41 @@ function Login() {
               />
             </div>
           </div>
+          <div>
+            <label htmlFor="repassword" className="block text-sm font-bold leading-6 text-gray-900">
+              Nhập lại mật khẩu:
+            </label>
+            <div className="mt-2">
+              <Controller
+                name="repassword"
+                control={control}
+                rules={{
+                  required: 'vui lòng xác nhận mật khẩu',
+                  validate: confirmPassword,
+                }}
+                render={({ field }) => (
+                  <div>
+                    <input
+                      id="password"
+                      name="repassword"
+                      type="password"
+                      className="block w-full rounded-md border-0 py-2 px-3 text-[0.8rem]
+                      text-gray-900 shadow-md ring-1 ring-inset ring-gray-300
+                      placeholder:text-gray-400 focus:ring-2 focus:ring-inset
+                      focus:ring-indigo-600  sm:leading-6"
+                      {...field}
+                    />
+                    <p className="flex bg-[#e54959] text-[#fff] w-fit my-2 px-2 rounded text-[0.8rem]">
+                      <div> {errors.repassword?.message}</div>
+                    </p>
+                  </div>
+                )}
+              />
+            </div>
+          </div>
 
           <div className="flex items-center justify-between">
-            <div className="flex items-start">
-              <div className="flex items-center h-5">
-                <input
-                  id="remember"
-                  aria-describedby="remember"
-                  type="checkbox"
-                  class="w-4 h-4 border border-gray-300 rounded
-                   bg-gray-50 focus:ring-3 focus:ring-primary-300"
-                  required=""
-                />
-              </div>
-              <div className="ml-3 text-sm">
-                <label for="remember" class="text-[#000000] font-bold">
-                  Ghi nhớ đăng nhập
-                </label>
-              </div>
-            </div>
+            <div className="flex items-start"></div>
             <div className="text-sm">
               <a href="/forgot-pass" className="font-semibold text-[#000000] hover:text-[#4b4b4b]">
                 Quên mật khẩu
@@ -154,7 +149,7 @@ function Login() {
                 hover:bg-[#4b4b4b] focus-visible:outline focus-visible:outline-2 
                 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
-              ĐĂNG NHẬP
+              THAY ĐỔI MẬT KHẨU
             </button>
             <Link
               to="/"
@@ -181,4 +176,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default ChangePass;

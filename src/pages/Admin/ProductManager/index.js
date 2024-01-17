@@ -1,21 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { PencilSquareIcon, TrashIcon, FunnelIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
+import { getAllProduct, sortProduct } from '~/service/ApiService';
 
 function ProductManager() {
-  const data = [
-    { name: 'Sơ mi', category: 'Áo', description: 'Áo Sơ Mi', price: 123, sale: 12, date: 'oko' },
-    { name: 'Quần đùi', category: 'Quần đùi', description: 'Áo Sơ Mi', price: 123, sale: 12, date: 'oko' },
-    { name: 'Sơ mi', category: 'Áo', description: 'Áo Sơ Mi', price: 123, sale: 12, date: 'oko' },
-    { name: 'Sơ mi', category: 'Áo', description: 'Áo Sơ Mi', price: 123, sale: 12, date: 'oko' },
-  ];
-
   const [isOpen, setIsOpen] = useState(false);
+  const [products, setProducts] = useState([]);
   const [isOpenMenu1, setIsOpenMenu1] = useState(false);
   const [isOpenMenu2, setIsOpenMenu2] = useState(false);
   const [isOpenMenu3, setIsOpenMenu3] = useState(false);
   const [isOpenMenu4, setIsOpenMenu4] = useState(false);
+  const [sortBy, setSortBy] = useState(null);
+  const [sortOrder, setSortOrder] = useState('asc');
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -34,12 +31,46 @@ function ProductManager() {
     setIsOpenMenu4(!isOpenMenu4);
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const prods = await getAllProduct();
+        setProducts(prods);
+        console.log('pre:', products);
+      } catch (error) {
+        console.error('Error in component:', error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const handleSort = async (field) => {
+    try {
+      if (sortBy === field) {
+        // Nếu cột đã được chọn, đảo ngược thứ tự sắp xếp
+        const newSortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+        setSortOrder(newSortOrder);
+        const sortedProducts = await sortProduct(newSortOrder, field);
+        setProducts(sortedProducts);
+      } else {
+        // Nếu chọn một cột mới, đặt cột và thứ tự sắp xếp
+        setSortBy(field);
+        const newSortOrder = 'asc'; // Đặt giá trị mặc định cho sortOrder khi chọn cột mới
+        setSortOrder(newSortOrder);
+        const sortedProducts = await sortProduct(newSortOrder, field);
+        setProducts(sortedProducts);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="container mx-auto p-4 bg-white shadow-lg rounded">
       <div className="">
         <p className="text-[0.9rem] pb-2 border-b-2">
           Tổng số sản phẩm:
-          <span className="text-[0.9rem] font-semibold"> 100</span>
+          <span className="text-[0.9rem] font-semibold"> </span>
         </p>
       </div>
       <div className="mb-3 flex items-center justify-between">
@@ -178,52 +209,70 @@ function ProductManager() {
       <table className="min-w-full bg-white border border-gray-300 rounded">
         <thead>
           <tr className="bg-gray-100">
-            <th className="py-2 pl-5 pr-7  border-b text-[0.8rem]">Sản phẩm</th>
+            <th className="py-2 pl-5 pr-8  border-b text-[0.8rem]">
+              Sản phẩm
+              {sortBy === 'name'}
+              <span className="cursor-pointer" onClick={() => handleSort('name')}>
+                {sortOrder === 'asc' ? ' \u25BC' : ' \u25B2'}
+              </span>
+            </th>
             <th className="py-2 px-4 border-b text-[0.8rem]">Danh mục</th>
             <th className="py-2 px-4 border-b text-[0.8rem]">Mô tả</th>
-            <th className="py-2 px-4 border-b text-[0.8rem]">Giá tiền</th>
-            <th className="py-2 px-1 border-b text-[0.8rem]">Khuyễn mãi</th>
+            <th className="py-2 px-4 border-b text-[0.8rem]">Size</th>
+            <th className="py-2 px-4 border-b text-[0.8rem]">Màu</th>
+            <th className="py-2 px-4 border-b text-[0.8rem]">
+              Giá tiền
+              {sortBy === 'name'}
+              <span className="cursor-pointer" onClick={() => handleSort('amount')}>
+                {sortOrder === 'asc' ? ' \u25BC' : ' \u25B2'}
+              </span>
+            </th>
             <th className="py-2 px-4 border-b text-[0.8rem]">Ngày tạo</th>
             <th className="py-2 px-4 border-b text-[0.8rem]">Thao tác</th>
             <th className="py-2 px-4 border-b text-[0.8rem]">Ẩn</th>
           </tr>
         </thead>
         <tbody>
-          {data.map((item) => (
-            <tr key={item.id} className="text-[0.8rem]">
-              <td className="py-2 pl-5 pr-7 border-b">{item.name}</td>
-              <td className="py-2 px-4 border-b ">
-                <span className="text-green-800 bg-green-200 rounded px-2 ">{item.category}</span>
-              </td>
-              <td className="py-2 px-4 border-b">{item.description}</td>
-              <td className="py-2 px-4 border-b">{parseFloat(item.price).toFixed(3)}đ</td>
-              <td className="py-2 px-1 border-b">{item.sale}%</td>
-              <td className="py-2 px-4 border-b">{item.date}</td>
-              <td className="py-2 px-4 border-b">
-                <div className="flex gap-[3px]">
-                  <Link
-                    to="view"
-                    className="flex items-center no-underline justify-between bg-[#334155] hover:bg-[#4b5f7b] text-white text-[0.7rem] px-[6px] py-[4px] rounded-[5px]"
-                  >
-                    <PencilSquareIcon className="h-4 w-4 mr-[2px]" />
-                    Sửa
-                  </Link>
-                  <button className="flex items-center justify-between bg-[#C81E1E] hover:bg-[#de9292] text-white text-[0.7rem] px-[6px] py-[4px] rounded-[5px]">
-                    <TrashIcon className="h-4 w-4 mr-[2px]" />
-                    Xóa
-                  </button>
-                </div>
-              </td>
-              <td className="py-2 px-4 border-b">
-                <label className="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    className="form-checkbox rounded border-[#C81E1E] text-[#C81E1E] focus:ring-[#C81E1E] focus:border-[#C81E1E] h-4 w-4"
-                  />
-                </label>
-              </td>
-            </tr>
-          ))}
+          {products.map(
+            (item) =>
+              item.category.status === 1 && (
+                <tr key={item.id} className="text-[0.8rem]">
+                  <td className="py-2 pl-5 pr-8 border-b">{item.name}</td>
+                  <td className="py-2 px-4 border-b ">
+                    <span className="text-green-800 bg-green-200 rounded px-2 ">{item.category.name}</span>
+                  </td>
+                  <td className="py-2 px-4 border-b">{item.description}</td>
+                  <td className="py-2 px-4 border-b">{item.description}</td>
+                  <td className="py-2 px-4 border-b">{item.description}</td>
+                  <td className="py-2 px-4 border-b">{parseFloat(item.amount).toFixed(3)}đ</td>
+                  <td className="py-2 px-4 border-b">{item.createdDate}</td>
+                  <td className="py-2 px-4 border-b">
+                    <div className="flex gap-[3px]">
+                      <Link
+                        to={`edit/${item.id}`}
+                        className="flex items-center no-underline justify-between bg-[#334155] hover:bg-[#4b5f7b] text-white text-[0.7rem] px-[6px] py-[4px] rounded-[5px]"
+                      >
+                        <PencilSquareIcon className="h-4 w-4 mr-[2px]" />
+                        Sửa
+                      </Link>
+                      <button className="flex items-center justify-between bg-[#C81E1E] hover:bg-[#de9292] text-white text-[0.7rem] px-[6px] py-[4px] rounded-[5px]">
+                        <TrashIcon className="h-4 w-4 mr-[2px]" />
+                        Xóa
+                      </button>
+                    </div>
+                  </td>
+                  <td className="py-2 px-4 border-b">
+                    <label className="flex items-center space-x-2">
+                      <input
+                        checked={item.status === 1 ? true : false}
+                        type="checkbox"
+                        className="form-checkbox rounded border-[#C81E1E] text-[#C81E1E] focus:ring-[#C81E1E] focus:border-[#C81E1E] h-4 w-4"
+                      />
+                    </label>
+                  </td>
+                </tr>
+              ),
+          )}
         </tbody>
       </table>
       <div className="flex items-center justify-between mt-3 border-t-2 pt-3">

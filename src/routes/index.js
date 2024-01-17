@@ -6,6 +6,7 @@ import ProductDetail from '~/pages/ProductDetail';
 import ReturnPolicy from '~/pages/ReturnPolicy';
 import About from '~/pages/About';
 import LoginPage from '~/pages/Login';
+import ChangePass from '~/pages/ChangePass';
 import RegisterPage from '~/pages/Register';
 import ForgotPassword from '~/pages/ForgotPassword';
 import Payment from '~/pages/Payment';
@@ -18,6 +19,9 @@ import EditProduct from '~/pages/Admin/EditProduct';
 import Bill from '~/pages/Admin/Bill';
 import BillDetail from '~/pages/Admin/BillDetail';
 import CreateProduct from '~/pages/Admin/CreateProduct';
+import PaymentResult from '~/pages/PaymentResult';
+import FinacialReport from '~/pages/Admin/FinancialReport';
+import ProductReport from '~/pages/Admin/ProductReport';
 
 const publicRoutes = [
   { path: '/', component: Home },
@@ -28,9 +32,11 @@ const publicRoutes = [
   { path: '/return-policy', component: ReturnPolicy },
   { path: '/about', component: About },
   { path: '/login-page', component: LoginPage, layout: null },
+  { path: '/change-pass', component: ChangePass, layout: null },
   { path: '/register-page', component: RegisterPage, layout: null },
   { path: '/forgot-pass', component: ForgotPassword, layout: null },
   { path: '/payment', component: Payment, layout: null },
+  { path: '/payment-result/:paymentStatus', component: PaymentResult, layout: null },
   { path: '/adminpage', component: AdminHome, layout: 0 },
   { path: '/adminpage/category-manager', component: CategoryManager, layout: 0 },
   { path: '/adminpage/product-manager', component: ProductManager, layout: 0 },
@@ -38,8 +44,10 @@ const publicRoutes = [
   { path: '/adminpage/role-manager', component: RoleManager, layout: 0 },
   { path: '/adminpage/bill', component: Bill, layout: 0 },
   { path: '/adminpage/product-manager/create-product', component: CreateProduct, layout: 0 },
-  { path: '/adminpage/product-manager/view', component: EditProduct, layout: 0 },
+  { path: '/adminpage/product-manager/edit/:productId', component: EditProduct, layout: 0 },
   { path: '/adminpage/bill/bill-detail', component: BillDetail, layout: 0 },
+  { path: '/adminpage/finacial-report', component: FinacialReport, layout: 0 },
+  { path: '/adminpage/product-report', component: ProductReport, layout: 0 },
 ];
 //private routes, user must login to see
 const privateRoutes = [];
