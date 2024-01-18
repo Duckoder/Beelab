@@ -1,7 +1,7 @@
 import { useForm, Controller } from 'react-hook-form';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useUser } from '~/context/UserContext';
 import { Link } from 'react-router-dom';
 import { handleLogin } from '~/service/ApiService';
@@ -13,46 +13,18 @@ function Login() {
     formState: { errors, isSubmitting, setError },
     watch,
   } = useForm();
-  //   try {
-  //     const { id, ...postData } = data;
-  //     const response = await axios.post('localhost:8080/accounts', postData);
-  //     if (response.status === 201) {
-  //       // Hiển thị Toast khi đăng ký thành công
-  //       toast.success('Đăng ký thành công, bạn sẽ được chuyển hướng đến trang đăng nhập');
-
-  //       // Chuyển hướng về trang đăng nhập
-  //       setTimeout(() => {
-  //         window.location.href = '/login-page';
-  //       }, 5000); // 3 seconds
-  //     } else {
-  //       // Hiển thị Toast khi có lỗi từ API
-  //       toast.error('Có lỗi xảy ra, vui lòng thử lại !!!');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error:', error);
-  //     //toast.error('An error occurred. Please try again.');
-  //   }
-  // };
-  const { signin } = useUser();
 
   const onSubmit = async (data) => {
-    console.log(data);
-    //toast.success('Đăng ký thành công, bạn sẽ được chuyển hướng đến trang đăng nhập !!!');
     try {
       await handleLogin(data);
-      //await signin(response);
       toast.success('Đăng nhập thành công');
-      // setTimeout(() => {
-      //   window.location.href = '/';
-      // }, 5000);
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 5000);
     } catch (error) {
-      toast.error('Có lỗi sảy ra');
+      toast.error('Đăng nhập thất bại');
       console.error(error);
     }
-
-    // setTimeout(() => {
-    //   window.location.href = '/login-page';
-    // }, 5000);
   };
 
   return (

@@ -1,12 +1,14 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState();
+  useEffect(() => {
+    // Các hành động khác khi currentUser thay đổi
+  }, [currentUser]);
 
   const signin = async (user) => {
-    // Xử lý đăng nhập và set thông tin người dùng
     await setCurrentUser(user);
   };
 

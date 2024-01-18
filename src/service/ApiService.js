@@ -185,7 +185,7 @@ const handleLogin = async (data) => {
       },
     });
     const token = response.data;
-    localStorage.setItem('token', token);
+    localStorage.setItem('token', JSON.stringify(token));
   } catch (error) {
     console.error('Login failed:', error);
   }
