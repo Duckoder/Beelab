@@ -2,7 +2,9 @@ import { useForm, Controller } from 'react-hook-form';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useContext, useState } from 'react';
+import { useUser } from '~/context/UserContext';
 import { Link } from 'react-router-dom';
+import { handleLogin } from '~/service/ApiService';
 
 function Login() {
   const {
@@ -31,15 +33,27 @@ function Login() {
   //     //toast.error('An error occurred. Please try again.');
   //   }
   // };
+  const { signin } = useUser();
 
   const onSubmit = async (data) => {
-    toast.success('Đăng ký thành công, bạn sẽ được chuyển hướng đến trang đăng nhập !!!');
+    console.log(data);
+    //toast.success('Đăng ký thành công, bạn sẽ được chuyển hướng đến trang đăng nhập !!!');
+    try {
+      await handleLogin(data);
+      //await signin(response);
+      toast.success('Đăng nhập thành công');
+      // setTimeout(() => {
+      //   window.location.href = '/';
+      // }, 5000);
+    } catch (error) {
+      toast.error('Có lỗi sảy ra');
+      console.error(error);
+    }
+
     // setTimeout(() => {
     //   window.location.href = '/login-page';
     // }, 5000);
   };
-
-  const email = watch('email');
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -57,12 +71,12 @@ function Login() {
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="space-y-6" action="#" method="POST" onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <label htmlFor="email" className="block text-sm font-bold leading-6 text-gray-900">
+            <label htmlFor="username" className="block text-sm font-bold leading-6 text-gray-900">
               Email:
             </label>
             <div className="mt-2">
               <Controller
-                name="email"
+                name="username"
                 control={control}
                 rules={{
                   required: 'Vui lòng nhập email',

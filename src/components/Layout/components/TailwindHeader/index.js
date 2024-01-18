@@ -5,6 +5,7 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { SideBarCartContext } from '~/context/SideBarCartContext';
 import SideBarCart from '~/components/Layout/components/SideBarCart';
 import { CartContext } from '~/context/CartContext/index';
+import { UserContext, useUser } from '~/context/UserContext/index';
 import { getAllCategory } from '~/service/ApiService';
 
 function classNames(...classes) {
@@ -17,6 +18,8 @@ function TailwindHeader() {
   const { setIsOpen, isOpen } = useContext(SideBarCartContext);
 
   const [categories, setCategories] = useState([]);
+
+  const { logout, currentUser } = useUser();
 
   useEffect(() => {
     const fetchData = async () => {

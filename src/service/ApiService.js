@@ -175,6 +175,22 @@ const getAllColor = async () => {
   }
 };
 
+//Login
+const handleLogin = async (data) => {
+  try {
+    const authHeader = `Basic ${btoa(`${data.username}:${data.password}`)}`;
+    const response = await axios.post('http://localhost:8080/auth/signin', data, {
+      headers: {
+        Authorization: authHeader,
+      },
+    });
+    const token = response.data;
+    localStorage.setItem('token', token);
+  } catch (error) {
+    console.error('Login failed:', error);
+  }
+};
+
 const getAllSupplier = async () => {
   try {
     const result = await callApi('GET', 'rest/supplier');
@@ -201,4 +217,5 @@ export {
   getAllColor,
   getAllSupplier,
   vnPayPayment,
+  handleLogin,
 };
