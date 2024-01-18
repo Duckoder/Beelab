@@ -49,7 +49,7 @@ function Home() {
                           productObj={prod}
                           productId={prod.id}
                           productCategory={prod.category.name}
-                          productImage="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
+                          productImage={prod.displayImage}
                           productName={prod.name}
                           productPrice={prod.amount}
                         />
